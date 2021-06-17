@@ -1,9 +1,10 @@
+
 import 'package:flutter/cupertino.dart';
 
-class DayView extends StatelessWidget {
+class ConsumptionListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text("dzisiaj");
+    return Text("lista zjedzonych rzeczy");
   }
 
 }

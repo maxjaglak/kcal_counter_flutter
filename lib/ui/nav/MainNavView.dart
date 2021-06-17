@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
-import 'package:kcal_counter_flutter/ui/daycount/DayView.dart';
 import 'package:kcal_counter_flutter/ui/history/HistoryView.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryView.dart';
 import 'package:kcal_counter_flutter/ui/nav/NavigationBloc.dart';
+import 'package:kcal_counter_flutter/ui/todaytab/TodayTabView.dart';
 
 class MainNavViewPage extends StatelessWidget {
   @override
@@ -30,7 +30,7 @@ class MobileNavigationViewBloc extends StatelessWidget {
 }
 
 class MobileNavigationView extends StatelessWidget {
-  List<Widget> _views = <Widget>[DayView(), HistoryView(), LibraryViewCubit()];
+  List<Widget> _views = <Widget>[TodayTabViewBloc(), HistoryView(), LibraryViewCubit()];
 
   List<BottomNavigationBarItem> _navItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: "Dzisiaj"),

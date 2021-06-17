@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:kcal_counter_flutter/core/AppInitService.dart';
 import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
 import 'package:kiwi/kiwi.dart';

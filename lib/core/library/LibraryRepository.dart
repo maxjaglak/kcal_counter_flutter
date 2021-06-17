@@ -18,6 +18,7 @@ class LibraryRepository {
     final fats = parseDouble(line[4]);
     return LibEntry(
       name,
+      "100g",
       kcals,
       carbs,
       fats,

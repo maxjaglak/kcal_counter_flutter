@@ -1,11 +1,12 @@
 class LibEntry {
   String name;
+  String unit;
   int kcals;
   double carbs;
   double fat;
   double proteins;
 
-  LibEntry(this.name, this.kcals, this.carbs, this.fat, this.proteins);
+  LibEntry(this.name, this.unit, this.kcals, this.carbs, this.fat, this.proteins);
 
   bool containsQuery(List<String> query) {
     return query.any((element) => name.toLowerCase().contains(element));
@@ -13,7 +14,7 @@ class LibEntry {
 
   @override
   String toString() {
-    return 'LibEntry{name: $name, kcals: $kcals, carbs: $carbs, fat: $fat, proteins: $proteins}';
+    return 'LibEntry{name: $name, unit: $unit, kcals: $kcals, carbs: $carbs, fat: $fat, proteins: $proteins}';
   }
 
   @override
@@ -22,6 +23,7 @@ class LibEntry {
       other is LibEntry &&
           runtimeType == other.runtimeType &&
           name == other.name &&
+          unit == other.unit &&
           kcals == other.kcals &&
           carbs == other.carbs &&
           fat == other.fat &&
@@ -30,6 +32,7 @@ class LibEntry {
   @override
   int get hashCode =>
       name.hashCode ^
+      unit.hashCode ^
       kcals.hashCode ^
       carbs.hashCode ^
       fat.hashCode ^
