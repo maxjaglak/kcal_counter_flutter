@@ -1,12 +1,13 @@
 class LibEntry {
   String name;
   String unit;
+  int perUnitCount;
   int kcals;
   double carbs;
   double fat;
   double proteins;
 
-  LibEntry(this.name, this.unit, this.kcals, this.carbs, this.fat, this.proteins);
+  LibEntry(this.name, this.unit, this.perUnitCount, this.kcals, this.carbs, this.fat, this.proteins);
 
   bool containsQuery(List<String> query) {
     return query.any((element) => name.toLowerCase().contains(element));

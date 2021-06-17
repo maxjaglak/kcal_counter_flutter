@@ -7,16 +7,24 @@ import 'LibraryBloc.dart';
 import 'LibraryListView.dart';
 
 class LibraryViewCubit extends StatelessWidget {
+  final LibraryListListener? listener;
+
+  const LibraryViewCubit({Key? key, this.listener}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) =>
             KiwiInjector.instance.getContainer().resolve<LibraryCubit>(),
-        child: LibraryView());
+        child: LibraryView(listener: listener));
   }
 }
 
 class LibraryView extends StatelessWidget {
+  final LibraryListListener? listener;
+
+  const LibraryView({Key? key, this.listener}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LibraryCubit, LibraryState>(
@@ -24,8 +32,12 @@ class LibraryView extends StatelessWidget {
         builder: (context, state) {
           if (state.loading) {
             return GeneralUI.progressIndicator();
-          } else if(state.entries?.isNotEmpty == true) {
-            return LibraryListView(entries: state.entries!, key: ObjectKey(state.entries));
+          } else if (state.entries?.isNotEmpty == true) {
+            return LibraryListView(
+              entries: state.entries!,
+              key: ObjectKey(state.entries),
+              listener: listener,
+            );
           } else {
             return Text("list empty");
           }

@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:kcal_counter_flutter/core/library/LibEntry.dart';
 import 'package:kcal_counter_flutter/ui/commonwidget/SearchBarWidget.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryListItem.dart';
 
 class LibraryListView extends StatefulWidget {
   final List<LibEntry> entries;
+  final LibraryListListener? listener;
 
-  const LibraryListView({Key? key, required this.entries}) : super(key: key);
+  const LibraryListView({Key? key, required this.entries, this.listener})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => LibraryListViewState();
-
 }
 
-class LibraryListViewState extends State<LibraryListView> implements SearchBarListener {
-
+class LibraryListViewState extends State<LibraryListView>
+    implements SearchBarListener {
   final List<LibEntry> filtered = [];
   SearchBarWidget? search = null;
 
@@ -43,7 +45,9 @@ class LibraryListViewState extends State<LibraryListView> implements SearchBarLi
 
   Widget _listItem(BuildContext context, int position) {
     var entry = filtered[position];
-    return LibraryListItemView(entry: entry, key: ObjectKey(entry));
+    return InkWell(
+        onTap: () => _tap(entry),
+        child: LibraryListItemView(entry: entry, key: ObjectKey(entry)));
   }
 
   @override
@@ -58,12 +62,20 @@ class LibraryListViewState extends State<LibraryListView> implements SearchBarLi
 
   void _filter(String text) {
     final query = text.toLowerCase().split(" ").toList();
-    final filtered = widget.entries.where((element) => element.containsQuery(query)).toList();
+    final filtered = widget.entries
+        .where((element) => element.containsQuery(query))
+        .toList();
     setState(() {
       this.filtered.clear();
       this.filtered.addAll(filtered);
     });
   }
 
+  _tap(LibEntry entry) {
+    widget.listener?.libEntryClicked(entry);
+  }
+}
 
+abstract class LibraryListListener {
+  void libEntryClicked(LibEntry libEntry);
 }

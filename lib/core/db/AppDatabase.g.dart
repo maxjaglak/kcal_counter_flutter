@@ -84,7 +84,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Day` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `dayBeginTimestamp` INTEGER NOT NULL)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Consumption` (`id` INTEGER NOT NULL, `dayId` INTEGER NOT NULL, `name` TEXT NOT NULL, `amount` INTEGER NOT NULL, `calculationUnit` TEXT NOT NULL, `kcals` INTEGER NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, `protein` REAL NOT NULL, `addTimestampMillis` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Consumption` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `dayId` INTEGER NOT NULL, `name` TEXT NOT NULL, `amount` INTEGER NOT NULL, `calculationUnit` TEXT NOT NULL, `kcals` INTEGER NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, `protein` REAL NOT NULL, `addTimestampMillis` INTEGER NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -207,7 +207,7 @@ class _$ConsumptionDao extends ConsumptionDao {
   Future<List<Consumption>> getConsumptionByDay(int dayId) async {
     return _queryAdapter.queryList(
         'SELECT * FROM Consumption WHERE dayId = ?1 ORDER BY addTimestampMillis DESC',
-        mapper: (Map<String, Object?> row) => Consumption(row['id'] as int, row['dayId'] as int, row['name'] as String, row['amount'] as int, row['calculationUnit'] as String, row['kcals'] as int, row['carbs'] as double, row['fat'] as double, row['protein'] as double, row['addTimestampMillis'] as int),
+        mapper: (Map<String, Object?> row) => Consumption(row['id'] as int?, row['dayId'] as int, row['name'] as String, row['amount'] as int, row['calculationUnit'] as String, row['kcals'] as int, row['carbs'] as double, row['fat'] as double, row['protein'] as double, row['addTimestampMillis'] as int),
         arguments: [dayId]);
   }
 
