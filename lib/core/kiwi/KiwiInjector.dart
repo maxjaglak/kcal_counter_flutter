@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:kcal_counter_flutter/core/config/Config.dart';
 import 'package:kcal_counter_flutter/core/db/AppDatabase.dart';
 import 'package:kcal_counter_flutter/core/history/ConsumptionService.dart';
+import 'package:kcal_counter_flutter/core/history/DateService.dart';
 import 'package:kcal_counter_flutter/core/history/dao/ConsumptionDao.dart';
 import 'package:kcal_counter_flutter/core/history/dao/DayDao.dart';
 import 'package:kcal_counter_flutter/core/library/LibraryRepository.dart';
@@ -33,15 +34,21 @@ class KiwiInjector {
     container.registerInstance(dayDao);
     container.registerInstance(consumptionDao);
 
-    container.registerSingleton((c) =>
-        ConsumptionService(c.resolve<DayDao>(), c.resolve<ConsumptionDao>()));
+    container.registerInstance(DateService());
+
+    container.registerSingleton((c) => ConsumptionService(
+        c.resolve<DayDao>(),
+        c.resolve<ConsumptionDao>(),
+        c.resolve<DateService>()
+    ));
 
     container.registerSingleton((c) => LibraryRepository());
 
     container.registerInstance(NavigationBloc());
     container
         .registerSingleton((c) => LibraryCubit(c.resolve<LibraryRepository>()));
-    container.registerSingleton((c) => TodayViewCubit(c.resolve<ConsumptionService>()));
+    container.registerSingleton(
+        (c) => TodayViewCubit(c.resolve<ConsumptionService>()));
 
     this._container = container;
   }

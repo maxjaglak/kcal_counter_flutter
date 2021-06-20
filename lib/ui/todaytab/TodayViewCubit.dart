@@ -21,12 +21,19 @@ class TodayViewCubit extends Cubit<TodayViewState> {
     }
 
     final list = await consumptionService.getConsumptionForDay(currentDay.id!);
-    
-    emit(TodayViewState(isDayOpen: true, day: currentDay, consumption: list));
+    final summary =
+        await consumptionService.getCosumptionSummaryForDay(currentDay.id!);
+
+    emit(TodayViewState(
+        isDayOpen: true,
+        day: currentDay,
+        consumption: list,
+        consumptionSummary: summary));
   }
 
   Future<void> startDayToday() async {
     await consumptionService.openDay();
+    reload();
   }
 }
 

@@ -148,6 +148,14 @@ class _$DayDao extends DayDao {
   }
 
   @override
+  Future<Day?> getDayById(int dayId) async {
+    return _queryAdapter.query('SELECT * FROM Day WHERE id = ?1 LIMIT 1',
+        mapper: (Map<String, Object?> row) =>
+            Day(row['id'] as int?, row['dayBeginTimestamp'] as int),
+        arguments: [dayId]);
+  }
+
+  @override
   Future<void> insert(Day day) async {
     await _dayInsertionAdapter.insert(day, OnConflictStrategy.abort);
   }

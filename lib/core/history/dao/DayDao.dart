@@ -10,6 +10,9 @@ abstract class DayDao {
   @Query("SELECT * FROM Day ORDER BY id DESC")
   Future<List<Day>> getDays();
 
+  @Query("SELECT * FROM Day WHERE id = :dayId LIMIT 1")
+  Future<Day?> getDayById(int dayId);
+
   @Insert()
   Future<void> insert(Day day);
 

@@ -54,8 +54,12 @@ class TodayTabView extends StatelessWidget {
 
   Widget _body(BuildContext context, TodayViewState state) {
     return Stack(children: [
-      Column(children: [
-        SummaryView(),
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        state.consumptionSummary != null
+            ? SummaryView(
+                consumptionSummary: state.consumptionSummary!,
+                key: ValueKey(state.consumptionSummary!.dayName))
+            : Container(height: 0),
         Expanded(
             child: ConsumptionListView(
                 key: ObjectKey(state.consumption),
