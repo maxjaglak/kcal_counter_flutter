@@ -11,8 +11,9 @@ class LibraryRepository {
   }
 
   LibEntry _parseLine(List line) {
+    print("trying to parse line: $line");
     final name = line[0];
-    final kcals = parseInt(line[1]);
+    final kcals = parseDouble(line[1]).toInt();
     final proteins = parseDouble(line[2]);
     final carbs = parseDouble(line[3]);
     final fats = parseDouble(line[4]);

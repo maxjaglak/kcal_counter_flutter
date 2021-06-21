@@ -58,11 +58,11 @@ class TodayTabView extends StatelessWidget {
         state.consumptionSummary != null
             ? SummaryView(
                 consumptionSummary: state.consumptionSummary!,
-                key: ValueKey(state.consumptionSummary!.dayName))
+                key: UniqueKey())
             : Container(height: 0),
         Expanded(
             child: ConsumptionListView(
-                key: ObjectKey(state.consumption),
+                key: UniqueKey(),
                 consumptions: state.consumption!))
       ]),
       _floatingActionButton(context, state.day!)

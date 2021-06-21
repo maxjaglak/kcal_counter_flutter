@@ -30,7 +30,7 @@ class MobileNavigationViewBloc extends StatelessWidget {
 }
 
 class MobileNavigationView extends StatelessWidget {
-  List<Widget> _views = <Widget>[TodayTabViewBloc(), HistoryView(), LibraryViewCubit()];
+  List<Widget> _views = <Widget>[TodayTabViewBloc(), HistoryViewCubit(), LibraryViewCubit()];
 
   List<BottomNavigationBarItem> _navItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: "Dzisiaj"),
