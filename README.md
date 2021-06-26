@@ -2,15 +2,16 @@
 
 Kcal counter flutter
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Offline calories counter
+- storing all data on your local device
 
-A few resources to get you started if this is your first Flutter project:
+## TODO:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+(It's very much "work in progress")
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- nicer UI :)
+- some details of lib entries
+- nicer search
+- possibility to edit consumptions (at least these added 'today')
