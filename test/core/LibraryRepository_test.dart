@@ -1,13 +1,13 @@
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kcal_counter_flutter/core/library/LibraryRepository.dart';
+import 'package:kcal_counter_flutter/core/library/CsvLibraryRepository.dart';
 
 void main() async {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test("try load data from csv", () async {
-    final entries = await LibraryRepository().getAll();
+    final entries = await CsvLibraryRepository().getAll();
     print(entries);
   });
 

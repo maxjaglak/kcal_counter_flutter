@@ -64,6 +64,8 @@ class _$AppDatabase extends AppDatabase {
 
   ConsumptionDao? _consumptionDaoInstance;
 
+  LibraryEntryDao? _libraryDaoInstance;
+
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
@@ -85,6 +87,8 @@ class _$AppDatabase extends AppDatabase {
             'CREATE TABLE IF NOT EXISTS `Day` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `dayBeginTimestamp` INTEGER NOT NULL)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Consumption` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `dayId` INTEGER NOT NULL, `name` TEXT NOT NULL, `amount` INTEGER NOT NULL, `calculationUnit` TEXT NOT NULL, `kcals` INTEGER NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, `protein` REAL NOT NULL, `addTimestampMillis` INTEGER NOT NULL)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `LibraryEntry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `unitName` TEXT NOT NULL, `perUnitCount` INTEGER NOT NULL, `kcals` INTEGER NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, `protein` REAL NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -101,6 +105,11 @@ class _$AppDatabase extends AppDatabase {
   ConsumptionDao get consumptionDao {
     return _consumptionDaoInstance ??=
         _$ConsumptionDao(database, changeListener);
+  }
+
+  @override
+  LibraryEntryDao get libraryDao {
+    return _libraryDaoInstance ??= _$LibraryEntryDao(database, changeListener);
   }
 }
 
@@ -229,5 +238,91 @@ class _$ConsumptionDao extends ConsumptionDao {
   Future<void> update(Consumption consumption) async {
     await _consumptionUpdateAdapter.update(
         consumption, OnConflictStrategy.abort);
+  }
+}
+
+class _$LibraryEntryDao extends LibraryEntryDao {
+  _$LibraryEntryDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database),
+        _libraryEntryInsertionAdapter = InsertionAdapter(
+            database,
+            'LibraryEntry',
+            (LibraryEntry item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'unitName': item.unitName,
+                  'perUnitCount': item.perUnitCount,
+                  'kcals': item.kcals,
+                  'carbs': item.carbs,
+                  'fat': item.fat,
+                  'protein': item.protein
+                }),
+        _libraryEntryUpdateAdapter = UpdateAdapter(
+            database,
+            'LibraryEntry',
+            ['id'],
+            (LibraryEntry item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'unitName': item.unitName,
+                  'perUnitCount': item.perUnitCount,
+                  'kcals': item.kcals,
+                  'carbs': item.carbs,
+                  'fat': item.fat,
+                  'protein': item.protein
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<LibraryEntry> _libraryEntryInsertionAdapter;
+
+  final UpdateAdapter<LibraryEntry> _libraryEntryUpdateAdapter;
+
+  @override
+  Future<List<LibraryEntry>> searchLibrary(String query) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM LibraryEntry WHERE name like ?1',
+        mapper: (Map<String, Object?> row) => LibraryEntry(
+            row['id'] as int?,
+            row['name'] as String,
+            row['unitName'] as String,
+            row['perUnitCount'] as int,
+            row['kcals'] as int,
+            row['carbs'] as double,
+            row['fat'] as double,
+            row['protein'] as double),
+        arguments: [query]);
+  }
+
+  @override
+  Future<List<LibraryEntry>> getPage(int limit, int offset) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM LibraryEntry ORDER BY id LIMIT ?1 OFFSET ?2',
+        mapper: (Map<String, Object?> row) => LibraryEntry(
+            row['id'] as int?,
+            row['name'] as String,
+            row['unitName'] as String,
+            row['perUnitCount'] as int,
+            row['kcals'] as int,
+            row['carbs'] as double,
+            row['fat'] as double,
+            row['protein'] as double),
+        arguments: [limit, offset]);
+  }
+
+  @override
+  Future<void> insert(LibraryEntry libraryEntry) async {
+    await _libraryEntryInsertionAdapter.insert(
+        libraryEntry, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> update(LibraryEntry libraryEntry) async {
+    await _libraryEntryUpdateAdapter.update(
+        libraryEntry, OnConflictStrategy.abort);
   }
 }

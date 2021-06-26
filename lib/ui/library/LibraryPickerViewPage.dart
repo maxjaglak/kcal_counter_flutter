@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kcal_counter_flutter/core/library/LibEntry.dart';
+import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryListView.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryView.dart';
 
@@ -22,7 +22,7 @@ class PickerListener implements LibraryListListener {
   PickerListener(this.context);
 
   @override
-  void libEntryClicked(LibEntry libEntry) {
+  void libEntryClicked(CsvLibEntry libEntry) {
     Navigator.of(context).pop(libEntry);
   }
 

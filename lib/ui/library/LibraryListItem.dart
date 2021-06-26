@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:kcal_counter_flutter/core/library/LibEntry.dart';
+import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 
 class LibraryListItemView extends StatelessWidget {
 
-  final LibEntry entry;
+  final CsvLibEntry entry;
 
   const LibraryListItemView({Key? key, required this.entry}) : super(key: key);
 

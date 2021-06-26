@@ -1,23 +1,24 @@
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
-import 'LibEntry.dart';
 
-class LibraryRepository {
+import 'model/CsvLibEntry.dart';
 
-  Future<List<LibEntry>> getAll() async {
+class CsvLibraryRepository {
+
+  Future<List<CsvLibEntry>> getAll() async {
     final libraryDataCsv = await rootBundle.loadString("assets/table.csv");
     final List<List<dynamic>> lines = CsvToListConverter().convert(libraryDataCsv, fieldDelimiter: ";", shouldParseNumbers: false, eol: '\n');
     return lines.map((line) => _parseLine(line)).toList();
   }
 
-  LibEntry _parseLine(List line) {
+  CsvLibEntry _parseLine(List line) {
     print("trying to parse line: $line");
     final name = line[0];
     final kcals = parseDouble(line[1]).toInt();
     final proteins = parseDouble(line[2]);
     final carbs = parseDouble(line[3]);
     final fats = parseDouble(line[4]);
-    return LibEntry(
+    return CsvLibEntry(
       name,
       "gramy",
       100,

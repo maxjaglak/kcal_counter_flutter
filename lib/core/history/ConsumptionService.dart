@@ -4,7 +4,7 @@ import 'package:kcal_counter_flutter/core/history/dao/DayDao.dart';
 import 'package:kcal_counter_flutter/core/history/model/Consumption.dart';
 import 'package:kcal_counter_flutter/core/history/model/ConsumptionSummary.dart';
 import 'package:kcal_counter_flutter/core/history/model/Day.dart';
-import 'package:kcal_counter_flutter/core/library/LibEntry.dart';
+import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 
 class ConsumptionService {
   final DayDao dayDao;
@@ -41,7 +41,7 @@ class ConsumptionService {
     return await consumptionDao.getConsumptionByDay(dayId);
   }
 
-  Future<void> saveConsumption(Day day, LibEntry pickedEntry,
+  Future<void> saveConsumption(Day day, CsvLibEntry pickedEntry,
       int quantity) async {
     final consumption = Consumption(
         null,

@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:kcal_counter_flutter/core/library/LibEntry.dart';
-import 'package:kcal_counter_flutter/core/library/LibraryRepository.dart';
+import 'package:kcal_counter_flutter/core/library/CsvLibraryRepository.dart';
+import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 
 class LibraryCubit extends Cubit<LibraryState> {
 
-  final LibraryRepository libraryRepository;
+  final CsvLibraryRepository libraryRepository;
 
   LibraryCubit(this.libraryRepository) : super(LibraryState(loading: true)) {
     load();
@@ -18,7 +18,7 @@ class LibraryCubit extends Cubit<LibraryState> {
 
 class LibraryState {
   final bool loading;
-  final List<LibEntry>? entries;
+  final List<CsvLibEntry>? entries;
 
   LibraryState({this.entries, this.loading = false});
 }

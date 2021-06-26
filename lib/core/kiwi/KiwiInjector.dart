@@ -5,7 +5,8 @@ import 'package:kcal_counter_flutter/core/history/ConsumptionService.dart';
 import 'package:kcal_counter_flutter/core/history/DateService.dart';
 import 'package:kcal_counter_flutter/core/history/dao/ConsumptionDao.dart';
 import 'package:kcal_counter_flutter/core/history/dao/DayDao.dart';
-import 'package:kcal_counter_flutter/core/library/LibraryRepository.dart';
+import 'package:kcal_counter_flutter/core/library/CsvLibraryRepository.dart';
+import 'package:kcal_counter_flutter/core/library/dao/LibraryEntryDao.dart';
 import 'package:kcal_counter_flutter/ui/history/HistoryCubit.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryBloc.dart';
 import 'package:kcal_counter_flutter/ui/nav/NavigationBloc.dart';
@@ -31,20 +32,24 @@ class KiwiInjector {
         .build();
     final DayDao dayDao = db.dayDao;
     final ConsumptionDao consumptionDao = db.consumptionDao;
+    final LibraryEntryDao libraryEntryDao = db.libraryDao;
+
+    container.registerInstance(db);
 
     container.registerInstance(dayDao);
     container.registerInstance(consumptionDao);
+    container.registerInstance(libraryEntryDao);
 
     container.registerInstance(DateService());
 
     container.registerSingleton((c) => ConsumptionService(c.resolve<DayDao>(),
         c.resolve<ConsumptionDao>(), c.resolve<DateService>()));
 
-    container.registerSingleton((c) => LibraryRepository());
+    container.registerSingleton((c) => CsvLibraryRepository());
 
     container.registerInstance(NavigationBloc());
     container
-        .registerSingleton((c) => LibraryCubit(c.resolve<LibraryRepository>()));
+        .registerSingleton((c) => LibraryCubit(c.resolve<CsvLibraryRepository>()));
     container.registerSingleton(
         (c) => TodayViewCubit(c.resolve<ConsumptionService>()));
 
