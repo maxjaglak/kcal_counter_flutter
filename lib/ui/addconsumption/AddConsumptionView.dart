@@ -4,6 +4,7 @@ import 'package:kcal_counter_flutter/core/history/ConsumptionService.dart';
 import 'package:kcal_counter_flutter/core/history/model/Day.dart';
 import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
 import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
+import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryListItem.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryPickerViewPage.dart';
 
@@ -35,7 +36,7 @@ class AddConsumptionView extends StatefulWidget {
 class AddConsumptionViewState extends State<AddConsumptionView> {
 
   final ConsumptionService _consumptionService = KiwiInjector.instance.getContainer().resolve<ConsumptionService>();
-  CsvLibEntry? _pickedEntry;
+  LibraryEntry? _pickedEntry;
   final TextEditingController _quantityController = TextEditingController();
   bool _shouldDisplaySaveButton = false;
 
@@ -70,7 +71,7 @@ class AddConsumptionViewState extends State<AddConsumptionView> {
   }
 
   void _pick() async {
-    CsvLibEntry? libEntry = await Navigator.of(context)
+    LibraryEntry? libEntry = await Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => LibraryPickerViewPage()));
 
     setState(() {

@@ -16,4 +16,10 @@ abstract class LibraryEntryDao {
   @Query("SELECT * FROM LibraryEntry ORDER BY id LIMIT :limit OFFSET :offset")
   Future<List<LibraryEntry>> getPage(int limit, int offset);
 
+  @Query("SELECT * FROM LibraryEntry WHERE name LIKE :query ORDER BY id LIMIT :limit OFFSET :offset")
+  Future<List<LibraryEntry>> getPageWithQuery(int limit, int offset, String query);
+
+  @Query("SELECT * FROM LibraryEntry ORDER BY id")
+  Future<List<LibraryEntry>> getAll();
+
 }

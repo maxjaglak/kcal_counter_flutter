@@ -315,6 +315,29 @@ class _$LibraryEntryDao extends LibraryEntryDao {
   }
 
   @override
+  Future<List<LibraryEntry>> getPageWithQuery(
+      int limit, int offset, String query) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM LibraryEntry WHERE name LIKE ?3 ORDER BY id LIMIT ?1 OFFSET ?2',
+        mapper: (Map<String, Object?> row) => LibraryEntry(row['id'] as int?, row['name'] as String, row['unitName'] as String, row['perUnitCount'] as int, row['kcals'] as int, row['carbs'] as double, row['fat'] as double, row['protein'] as double),
+        arguments: [limit, offset, query]);
+  }
+
+  @override
+  Future<List<LibraryEntry>> getAll() async {
+    return _queryAdapter.queryList('SELECT * FROM LibraryEntry ORDER BY id',
+        mapper: (Map<String, Object?> row) => LibraryEntry(
+            row['id'] as int?,
+            row['name'] as String,
+            row['unitName'] as String,
+            row['perUnitCount'] as int,
+            row['kcals'] as int,
+            row['carbs'] as double,
+            row['fat'] as double,
+            row['protein'] as double));
+  }
+
+  @override
   Future<void> insert(LibraryEntry libraryEntry) async {
     await _libraryEntryInsertionAdapter.insert(
         libraryEntry, OnConflictStrategy.abort);

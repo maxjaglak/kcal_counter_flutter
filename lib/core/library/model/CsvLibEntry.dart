@@ -12,10 +12,6 @@ class CsvLibEntry {
   CsvLibEntry(this.name, this.unit, this.perUnitCount, this.kcals, this.carbs,
       this.fat, this.proteins);
 
-  bool containsQuery(List<String> query) {
-    return query.any((element) => name.toLowerCase().contains(element));
-  }
-
   @override
   String toString() {
     return 'CsvLibEntry{name: $name, unit: $unit, perUnitCount: $perUnitCount, kcals: $kcals, carbs: $carbs, fat: $fat, proteins: $proteins}';

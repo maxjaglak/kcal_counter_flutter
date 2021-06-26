@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
+import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
 import 'package:kcal_counter_flutter/ui/commonwidget/SearchBarWidget.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryListItem.dart';
 
 class LibraryListView extends StatefulWidget {
-  final List<CsvLibEntry> entries;
+  final List<LibraryEntry> entries;
   final LibraryListListener? listener;
 
   const LibraryListView({Key? key, required this.entries, this.listener})
@@ -17,7 +18,7 @@ class LibraryListView extends StatefulWidget {
 
 class LibraryListViewState extends State<LibraryListView>
     implements SearchBarListener {
-  final List<CsvLibEntry> filtered = [];
+  final List<LibraryEntry> filtered = [];
   SearchBarWidget? search = null;
 
   @override
@@ -71,11 +72,11 @@ class LibraryListViewState extends State<LibraryListView>
     });
   }
 
-  _tap(CsvLibEntry entry) {
+  _tap(LibraryEntry entry) {
     widget.listener?.libEntryClicked(entry);
   }
 }
 
 abstract class LibraryListListener {
-  void libEntryClicked(CsvLibEntry libEntry);
+  void libEntryClicked(LibraryEntry libEntry);
 }
