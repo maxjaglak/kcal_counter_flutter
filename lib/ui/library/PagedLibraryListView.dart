@@ -115,7 +115,6 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
   void updateQuery(String name) {
     setState(() {
       _query = name.toLowerCase();
-      _
       _pagingController.refresh();
     });
   }
