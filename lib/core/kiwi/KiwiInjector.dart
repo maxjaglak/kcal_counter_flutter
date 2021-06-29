@@ -8,6 +8,7 @@ import 'package:kcal_counter_flutter/core/history/dao/DayDao.dart';
 import 'package:kcal_counter_flutter/core/library/CsvLibraryRepository.dart';
 import 'package:kcal_counter_flutter/core/library/dao/LibraryEntryDao.dart';
 import 'package:kcal_counter_flutter/ui/history/HistoryCubit.dart';
+import 'package:kcal_counter_flutter/ui/libraryedit/LibraryEditCubit.dart';
 import 'package:kcal_counter_flutter/ui/nav/NavigationBloc.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/TodayViewCubit.dart';
 import 'package:kiwi/kiwi.dart';
@@ -47,10 +48,12 @@ class KiwiInjector {
     container.registerSingleton((c) => CsvLibraryRepository());
 
     container.registerInstance(NavigationBloc());
-    container.registerSingleton(
+    container.registerFactory(
         (c) => TodayViewCubit(c.resolve<ConsumptionService>()));
 
-    container.registerSingleton((c) => HistoryCubit(c.resolve<DayDao>()));
+    container.registerFactory((c) => HistoryCubit(c.resolve<DayDao>()));
+
+    container.registerFactory((c) => LibraryEditCubit(c.resolve<LibraryEntryDao>()));
 
     this._container = container;
   }

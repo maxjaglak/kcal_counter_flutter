@@ -13,10 +13,11 @@ import 'LibraryListView.dart';
 class PagedLibraryListView extends StatefulWidget {
   final LibraryListListener? listener;
 
-  const PagedLibraryListView({Key? key, this.listener}) : super(key: key);
+  PagedLibraryListView({Key? key, this.listener}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => PagedLibraryListViewState();
+
 }
 
 class PagedLibraryListViewState extends State<PagedLibraryListView>
@@ -106,4 +107,17 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
   _tap(LibraryEntry entry) {
     widget.listener?.libEntryClicked(entry);
   }
+
+  void refresh() {
+    this._pagingController.refresh();
+  }
+
+  void updateQuery(String name) {
+    setState(() {
+      _query = name.toLowerCase();
+      _
+      _pagingController.refresh();
+    });
+  }
+
 }

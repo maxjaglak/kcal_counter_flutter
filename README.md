@@ -15,3 +15,4 @@ Kcal counter flutter
 - some details of lib entries
 - nicer search
 - possibility to edit consumptions (at least these added 'today')
+- langs support

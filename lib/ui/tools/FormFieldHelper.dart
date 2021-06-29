@@ -8,13 +8,15 @@ class FormFieldHelper {
       Color textColor = Colors.black,
       String hint = "",
       bool autoCorrect = true,
-      bool obscureText = false}) {
+      bool obscureText = false,
+      TextInputType textInputType = TextInputType.text}) {
     return TextFormField(
         autovalidateMode: AutovalidateMode.always,
         validator: _wrapValidation(controller, validator, validationCallback),
         autocorrect: autoCorrect,
         controller: controller,
         obscureText: obscureText,
+        keyboardType: textInputType,
         style: TextStyle(
           color: textColor,
           fontSize: 16.0,
