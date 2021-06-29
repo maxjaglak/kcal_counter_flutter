@@ -183,6 +183,6 @@ class LibraryEditViewState extends State<LibraryEditView> {
 
     await BlocProvider.of<LibraryEditCubit>(context).save(libraryEntry);
 
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(libraryEntry);
   }
 }
