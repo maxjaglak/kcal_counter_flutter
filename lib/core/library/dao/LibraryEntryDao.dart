@@ -22,4 +22,7 @@ abstract class LibraryEntryDao {
   @Query("SELECT * FROM LibraryEntry ORDER BY id")
   Future<List<LibraryEntry>> getAll();
 
+  @delete
+  Future<void> deleteEntry(LibraryEntry entry);
+
 }

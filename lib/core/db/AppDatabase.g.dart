@@ -270,6 +270,20 @@ class _$LibraryEntryDao extends LibraryEntryDao {
                   'carbs': item.carbs,
                   'fat': item.fat,
                   'protein': item.protein
+                }),
+        _libraryEntryDeletionAdapter = DeletionAdapter(
+            database,
+            'LibraryEntry',
+            ['id'],
+            (LibraryEntry item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'unitName': item.unitName,
+                  'perUnitCount': item.perUnitCount,
+                  'kcals': item.kcals,
+                  'carbs': item.carbs,
+                  'fat': item.fat,
+                  'protein': item.protein
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -281,6 +295,8 @@ class _$LibraryEntryDao extends LibraryEntryDao {
   final InsertionAdapter<LibraryEntry> _libraryEntryInsertionAdapter;
 
   final UpdateAdapter<LibraryEntry> _libraryEntryUpdateAdapter;
+
+  final DeletionAdapter<LibraryEntry> _libraryEntryDeletionAdapter;
 
   @override
   Future<List<LibraryEntry>> searchLibrary(String query) async {
@@ -347,5 +363,10 @@ class _$LibraryEntryDao extends LibraryEntryDao {
   Future<void> update(LibraryEntry libraryEntry) async {
     await _libraryEntryUpdateAdapter.update(
         libraryEntry, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> deleteEntry(LibraryEntry entry) async {
+    await _libraryEntryDeletionAdapter.delete(entry);
   }
 }

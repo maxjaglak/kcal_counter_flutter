@@ -84,6 +84,7 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
   Widget _listItem(BuildContext context, LibraryEntry entry) {
     return InkWell(
         onTap: () => _tap(entry),
+        onLongPress: () => _confirmDelete(context, entry),
         child: LibraryListItemView(entry: entry, key: ObjectKey(entry)));
   }
 
@@ -117,6 +118,28 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
       _query = name.toLowerCase();
       _pagingController.refresh();
     });
+  }
+
+
+  _confirmDelete(BuildContext parentContext, LibraryEntry entry) {
+    showDialog(context: context, builder: (context) => AlertDialog(
+      title: Text("Usunąć?"),
+      content: Text("Czy na pewno usunąć pozycje: ${entry.name}?"),
+      actions: [
+        TextButton(onPressed: ()  {
+          _delete(parentContext, entry);
+          Navigator.of(parentContext).pop();
+        }, child: Text("Tak")),
+        TextButton(onPressed: ()  {
+          Navigator.of(parentContext).pop();
+        }, child: Text("Nie")),
+      ],
+    ));
+  }
+
+  void _delete(BuildContext parentContext, LibraryEntry entry) async {
+    await _libraryEntryDao.deleteEntry(entry);
+    refresh();
   }
 
 }
