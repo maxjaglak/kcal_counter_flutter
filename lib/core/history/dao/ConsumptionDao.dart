@@ -14,4 +14,7 @@ abstract class ConsumptionDao {
   @Update()
   Future<void> update(Consumption consumption);
 
+  @delete
+  Future<void> deleteConsumption(Consumption consumption);
+
 }

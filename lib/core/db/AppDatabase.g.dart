@@ -208,6 +208,22 @@ class _$ConsumptionDao extends ConsumptionDao {
                   'fat': item.fat,
                   'protein': item.protein,
                   'addTimestampMillis': item.addTimestampMillis
+                }),
+        _consumptionDeletionAdapter = DeletionAdapter(
+            database,
+            'Consumption',
+            ['id'],
+            (Consumption item) => <String, Object?>{
+                  'id': item.id,
+                  'dayId': item.dayId,
+                  'name': item.name,
+                  'amount': item.amount,
+                  'calculationUnit': item.calculationUnit,
+                  'kcals': item.kcals,
+                  'carbs': item.carbs,
+                  'fat': item.fat,
+                  'protein': item.protein,
+                  'addTimestampMillis': item.addTimestampMillis
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -219,6 +235,8 @@ class _$ConsumptionDao extends ConsumptionDao {
   final InsertionAdapter<Consumption> _consumptionInsertionAdapter;
 
   final UpdateAdapter<Consumption> _consumptionUpdateAdapter;
+
+  final DeletionAdapter<Consumption> _consumptionDeletionAdapter;
 
   @override
   Future<List<Consumption>> getConsumptionByDay(int dayId) async {
@@ -238,6 +256,11 @@ class _$ConsumptionDao extends ConsumptionDao {
   Future<void> update(Consumption consumption) async {
     await _consumptionUpdateAdapter.update(
         consumption, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> deleteConsumption(Consumption consumption) async {
+    await _consumptionDeletionAdapter.delete(consumption);
   }
 }
 

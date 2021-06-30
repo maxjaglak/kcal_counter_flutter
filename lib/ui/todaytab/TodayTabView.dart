@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kcal_counter_flutter/core/history/model/Consumption.dart';
 import 'package:kcal_counter_flutter/core/history/model/Day.dart';
 import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
 import 'package:kcal_counter_flutter/ui/addconsumption/AddConsumptionView.dart';
@@ -20,7 +21,13 @@ class TodayTabViewBloc extends StatelessWidget {
   }
 }
 
-class TodayTabView extends StatelessWidget {
+class TodayTabView extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => TodayTabViewState();
+}
+
+class TodayTabViewState extends State<TodayTabView> implements ConsumptionListListener {
+
   Widget build(BuildContext context) {
     return BlocBuilder<TodayViewCubit, TodayViewState>(
         bloc: BlocProvider.of<TodayViewCubit>(context),
@@ -40,15 +47,15 @@ class TodayTabView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
           child: Center(
-        child: Column(
-          children: [
-            Text("Pusto tutaj..."),
-            TextButton(
-                onPressed: () => _startDay(context),
-                child: Text("Zacznij dzisiejszy dzień :)"))
-          ],
-        ),
-      )),
+            child: Column(
+              children: [
+                Text("Pusto tutaj..."),
+                TextButton(
+                    onPressed: () => _startDay(context),
+                    child: Text("Zacznij dzisiejszy dzień :)"))
+              ],
+            ),
+          )),
     );
   }
 
@@ -57,13 +64,13 @@ class TodayTabView extends StatelessWidget {
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         state.consumptionSummary != null
             ? SummaryView(
-                consumptionSummary: state.consumptionSummary!,
-                key: UniqueKey())
+            consumptionSummary: state.consumptionSummary!,
+            key: UniqueKey())
             : Container(height: 0),
         Expanded(
             child: ConsumptionListView(
-                key: UniqueKey(),
-                consumptions: state.consumption!))
+              key: UniqueKey(),
+              consumptions: state.consumption!, listener: this))
       ]),
       _floatingActionButton(context, state.day!)
     ]);
@@ -94,4 +101,38 @@ class TodayTabView extends StatelessWidget {
 
     BlocProvider.of<TodayViewCubit>(context).reload();
   }
+
+  @override
+  void deleteConsumptionClicked(Consumption consumption) {
+    showDialog(context: context, builder: (context) => AlertDialog(
+      title: Text("Usunąć?"),
+      content: Text("Czy na pewno usunąć pozycje: ${consumption.name} / ${consumption.amount} [${consumption.calculationUnit}?"),
+      actions: [
+        TextButton(onPressed: ()  {
+          _deleteConsumption(this.context, consumption);
+          Navigator.of(this.context).pop();
+        }, child: Text("Tak")),
+        TextButton(onPressed: ()  {
+          Navigator.of(this.context).pop();
+        }, child: Text("Nie")),
+      ],
+    ));
+  }
+
+
+  _deleteConsumption(BuildContext context, Consumption consumption) async {
+    await BlocProvider.of<TodayViewCubit>(context).delete(consumption);
+
+    _refresh();
+  }
+
+  void _refresh() async {
+    BlocProvider.of<TodayViewCubit>(context).reload();
+  }
+
+  @override
+  void consumptionClicked(Consumption consumption) {
+    //todo
+  }
+
 }

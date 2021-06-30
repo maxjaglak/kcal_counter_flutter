@@ -7,8 +7,9 @@ import 'package:kcal_counter_flutter/ui/todaytab/ConsumptionListItemView.dart';
 
 class ConsumptionListView extends StatelessWidget {
   final List<Consumption> consumptions;
+  final ConsumptionListListener listener;
 
-  const ConsumptionListView({Key? key, required this.consumptions})
+  const ConsumptionListView({Key? key, required this.consumptions, required this.listener})
       : super(key: key);
 
   @override
@@ -16,22 +17,29 @@ class ConsumptionListView extends StatelessWidget {
     if (this.consumptions.isEmpty) {
       return _empty();
     }
-    return _list();
+    return _list(context);
   }
 
   Widget _empty() {
     return Center(child: Text("Brak elementów"));
   }
 
-  Widget _list() {
+  Widget _list(BuildContext context) {
     return ListView.builder(
-        itemBuilder: (context, position) => _item(position),
+        itemBuilder: (context, position) => _item(context, position),
         itemCount: consumptions.length);
   }
 
-  Widget _item(int position) {
+  Widget _item(BuildContext context, int position) {
     final item = consumptions[position];
-    return ConsumptionListItemView(key: ObjectKey(item), consumption: item);
+    return InkWell(
+      onLongPress: () => listener.deleteConsumptionClicked(item),
+        child: ConsumptionListItemView(key: ObjectKey(item), consumption: item));
   }
 
+}
+
+abstract class ConsumptionListListener {
+  void consumptionClicked(Consumption consumption);
+  void deleteConsumptionClicked(Consumption consumption);
 }

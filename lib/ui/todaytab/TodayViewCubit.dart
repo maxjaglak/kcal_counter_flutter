@@ -35,6 +35,10 @@ class TodayViewCubit extends Cubit<TodayViewState> {
     await consumptionService.openDay();
     reload();
   }
+
+  Future<void> delete(Consumption consumption) async {
+    await consumptionService.deleteConsumption(consumption);
+  }
 }
 
 class TodayViewState {

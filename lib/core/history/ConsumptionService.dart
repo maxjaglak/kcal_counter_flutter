@@ -90,4 +90,8 @@ class ConsumptionService {
     );
   }
 
+  Future<void> deleteConsumption(Consumption consumption) async {
+    await consumptionDao.deleteConsumption(consumption);
+  }
+
 }
