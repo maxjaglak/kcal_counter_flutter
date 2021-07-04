@@ -93,6 +93,16 @@ class LibraryEditViewState extends State<LibraryEditView> {
   }
 
   Widget _body(BuildContext context, LibraryEntry libraryEntry) {
+    if(libraryEntry.id != null) {
+      _nameController.text = libraryEntry.name;
+      _unitNameController.text = libraryEntry.unitName;
+      _perUnitCountController.text = libraryEntry.perUnitCount.toString();
+      _kcalsController.text = libraryEntry.kcals.toString();
+      _carbsController.text = libraryEntry.carbs.toString();
+      _fatsController.text = libraryEntry.fat.toString();
+      _proteinController.text = libraryEntry.protein.toString();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

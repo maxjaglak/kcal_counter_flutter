@@ -6,14 +6,18 @@ import 'package:kcal_counter_flutter/ui/libraryedit/LibraryEditView.dart';
 import 'LibraryListView.dart';
 
 class LibraryViewTab extends StatelessWidget {
-  const LibraryViewTab({Key? key}) : super(key: key);
+
+  LibraryViewTab({Key? key}) : super(key: key);
+
+  GlobalKey<PagedLibraryListViewState> libKey = GlobalKey<PagedLibraryListViewState>();
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         PagedLibraryListView(
-          listener: TabListener(context),
+          listener: TabListener(context, libKey),
+          key: libKey,
         ),
         Positioned(
             bottom: 10,
@@ -37,11 +41,17 @@ class LibraryViewTab extends StatelessWidget {
 
 class TabListener implements LibraryListListener {
   final BuildContext context;
+  final GlobalKey<PagedLibraryListViewState> libKey;
 
-  TabListener(this.context);
+  TabListener(this.context, this.libKey);
 
   @override
-  void libEntryClicked(LibraryEntry libEntry) {
-    // Navigator.of(context).pop(libEntry);
+  void libEntryClicked(LibraryEntry libEntry) async{
+    await Navigator.of(this.context).push(MaterialPageRoute(
+        builder: (context) => LibraryEditViewPage(
+            libraryEntry: libEntry, key: ObjectKey(libEntry))));
+
+    libKey.currentState?.refresh();
   }
+
 }
