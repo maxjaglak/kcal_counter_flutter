@@ -5,7 +5,7 @@ class FormFieldHelper {
   static Widget textField(TextEditingController controller,
       {ValidationCallback? validationCallback = null,
       FormFieldValidator<String>? validator = null,
-      Color textColor = Colors.black,
+      Color textColor = Colors.white,
       String hint = "",
       bool autoCorrect = true,
       bool obscureText = false,
@@ -19,7 +19,7 @@ class FormFieldHelper {
         keyboardType: textInputType,
         style: TextStyle(
           color: textColor,
-          fontSize: 16.0,
+          fontSize: 15.0,
         ));
   }
 

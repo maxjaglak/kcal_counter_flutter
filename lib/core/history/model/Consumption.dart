@@ -23,4 +23,5 @@ class Consumption {
   String toString() {
     return 'Consumption{id: $id, dayId: $dayId, name: $name, amount: $amount, calculationUnit: $calculationUnit, kcals: $kcals, carbs: $carbs, fat: $fat, protein: $protein, addTimestampMillis: $addTimestampMillis}';
   }
+
 }

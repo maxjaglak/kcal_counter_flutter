@@ -13,20 +13,8 @@ class GeneralUI {
 
   static Widget progressIndicator() {
     return Container(
-        color: Colors.white,
+        color: Colors.grey,
         child: Center(child: CircularProgressIndicator()));
-  }
-
-  static Widget titleText(String text) {
-    return Text(text, style: TextStyle(color: Colors.black54, fontSize: 18.0));
-  }
-
-  static Widget text(String text) {
-    return Text(text);
-  }
-
-  static Widget boldText(String text) {
-    return Text(text, style: TextStyle(fontWeight: FontWeight.bold));
   }
 
 }
