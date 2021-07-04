@@ -12,7 +12,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        primaryColor: Color.fromARGB(255, 48, 68, 77),
+        accentColor: Color.fromARGB(255, 57, 214, 138),
+        textTheme: TextTheme(
+          headline1: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          bodyText2: TextStyle(fontSize: 16.0, fontFamily: 'Hind'),
+        ),
       ),
       home: InitViewBloc(),
     );
