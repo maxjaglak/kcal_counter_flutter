@@ -63,6 +63,9 @@ class LibraryEditViewState extends State<LibraryEditView> {
 
   late ValidationCallback _validationCallback;
 
+  bool _isFavourite = false;
+  bool _isDateFilledOnLoad = false;
+
   @override
   void initState() {
     super.initState();
@@ -93,7 +96,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
   }
 
   Widget _body(BuildContext context, LibraryEntry libraryEntry) {
-    if(libraryEntry.id != null) {
+    if(libraryEntry.id != null && !_isDateFilledOnLoad) {
       _nameController.text = libraryEntry.name;
       _unitNameController.text = libraryEntry.unitName;
       _perUnitCountController.text = libraryEntry.perUnitCount.toString();
@@ -101,6 +104,8 @@ class LibraryEditViewState extends State<LibraryEditView> {
       _carbsController.text = libraryEntry.carbs.toString();
       _fatsController.text = libraryEntry.fat.toString();
       _proteinController.text = libraryEntry.protein.toString();
+      _isFavourite = libraryEntry.isFavourite;
+      _isDateFilledOnLoad = true;
     }
 
     return Column(
@@ -166,11 +171,23 @@ class LibraryEditViewState extends State<LibraryEditView> {
                     : "Pole białko w porcji musi zawierać liczbę >= 0",
             validationCallback: _validationCallback),
         TextHelper.label("Białko w porcji"),
+        Row(
+          children: [
+            Checkbox(value: _isFavourite, onChanged: (value) => _onFavouriteChanged(value ?? false)),
+            Text("Ulubiony (wyżej na liście)")
+          ],
+        ),
         TextButton(
             onPressed: () => _save(context, libraryEntry),
             child: Text("Zapisz"))
       ],
     );
+  }
+
+  _onFavouriteChanged(bool value) {
+    setState(() {
+      _isFavourite = value;
+    });
   }
 
   _save(BuildContext context, LibraryEntry libraryEntry) async {
@@ -190,6 +207,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
     libraryEntry.protein =
         double.tryParse(_proteinController.text.toString()) ??
             libraryEntry.protein;
+    libraryEntry.isFavourite = _isFavourite;
 
     await BlocProvider.of<LibraryEditCubit>(context).save(libraryEntry);
 

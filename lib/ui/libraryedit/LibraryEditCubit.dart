@@ -14,7 +14,7 @@ class LibraryEditCubit extends Cubit<LibraryEditState> {
   void init(LibraryEntry? libraryEntry) {
     this._libraryEntry = libraryEntry;
     if (this._libraryEntry == null) {
-      this._libraryEntry = LibraryEntry(null, "", "", 0, 0, 0, 0, 0);
+      this._libraryEntry = LibraryEntry(null, "", "", 0, 0, 0, 0, 0, false);
     }
 
     emit(LibraryEditState(libraryEntry: this._libraryEntry));

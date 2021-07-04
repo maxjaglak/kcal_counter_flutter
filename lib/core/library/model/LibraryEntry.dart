@@ -13,9 +13,10 @@ class LibraryEntry {
   double carbs;
   double fat;
   double protein;
+  bool isFavourite;
 
   LibraryEntry(this.id, this.name, this.unitName, this.perUnitCount, this.kcals,
-      this.carbs, this.fat, this.protein);
+      this.carbs, this.fat, this.protein, this.isFavourite);
 
   bool containsQuery(List<String> query) {
     return query.any((element) => name.toLowerCase().contains(element));
@@ -23,7 +24,7 @@ class LibraryEntry {
 
   @override
   String toString() {
-    return 'LibraryEntry{id: $id, name: $name, unitName: $unitName, perUnitCount: $perUnitCount, kcals: $kcals, carbs: $carbs, fat: $fat, protein: $protein}';
+    return 'LibraryEntry{id: $id, name: $name, unitName: $unitName, perUnitCount: $perUnitCount, kcals: $kcals, carbs: $carbs, fat: $fat, protein: $protein, isFavourite: $isFavourite}';
   }
 
 }

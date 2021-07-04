@@ -88,7 +88,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Consumption` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `dayId` INTEGER NOT NULL, `name` TEXT NOT NULL, `amount` INTEGER NOT NULL, `calculationUnit` TEXT NOT NULL, `kcals` INTEGER NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, `protein` REAL NOT NULL, `addTimestampMillis` INTEGER NOT NULL)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `LibraryEntry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `unitName` TEXT NOT NULL, `perUnitCount` INTEGER NOT NULL, `kcals` INTEGER NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, `protein` REAL NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `LibraryEntry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `unitName` TEXT NOT NULL, `perUnitCount` INTEGER NOT NULL, `kcals` INTEGER NOT NULL, `carbs` REAL NOT NULL, `fat` REAL NOT NULL, `protein` REAL NOT NULL, `isFavourite` INTEGER NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -278,7 +278,8 @@ class _$LibraryEntryDao extends LibraryEntryDao {
                   'kcals': item.kcals,
                   'carbs': item.carbs,
                   'fat': item.fat,
-                  'protein': item.protein
+                  'protein': item.protein,
+                  'isFavourite': item.isFavourite ? 1 : 0
                 }),
         _libraryEntryUpdateAdapter = UpdateAdapter(
             database,
@@ -292,7 +293,8 @@ class _$LibraryEntryDao extends LibraryEntryDao {
                   'kcals': item.kcals,
                   'carbs': item.carbs,
                   'fat': item.fat,
-                  'protein': item.protein
+                  'protein': item.protein,
+                  'isFavourite': item.isFavourite ? 1 : 0
                 }),
         _libraryEntryDeletionAdapter = DeletionAdapter(
             database,
@@ -306,7 +308,8 @@ class _$LibraryEntryDao extends LibraryEntryDao {
                   'kcals': item.kcals,
                   'carbs': item.carbs,
                   'fat': item.fat,
-                  'protein': item.protein
+                  'protein': item.protein,
+                  'isFavourite': item.isFavourite ? 1 : 0
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -333,23 +336,16 @@ class _$LibraryEntryDao extends LibraryEntryDao {
             row['kcals'] as int,
             row['carbs'] as double,
             row['fat'] as double,
-            row['protein'] as double),
+            row['protein'] as double,
+            (row['isFavourite'] as int) != 0),
         arguments: [query]);
   }
 
   @override
   Future<List<LibraryEntry>> getPage(int limit, int offset) async {
     return _queryAdapter.queryList(
-        'SELECT * FROM LibraryEntry ORDER BY id LIMIT ?1 OFFSET ?2',
-        mapper: (Map<String, Object?> row) => LibraryEntry(
-            row['id'] as int?,
-            row['name'] as String,
-            row['unitName'] as String,
-            row['perUnitCount'] as int,
-            row['kcals'] as int,
-            row['carbs'] as double,
-            row['fat'] as double,
-            row['protein'] as double),
+        'SELECT * FROM LibraryEntry ORDER BY isFavourite DESC, id LIMIT ?1 OFFSET ?2',
+        mapper: (Map<String, Object?> row) => LibraryEntry(row['id'] as int?, row['name'] as String, row['unitName'] as String, row['perUnitCount'] as int, row['kcals'] as int, row['carbs'] as double, row['fat'] as double, row['protein'] as double, (row['isFavourite'] as int) != 0),
         arguments: [limit, offset]);
   }
 
@@ -357,8 +353,8 @@ class _$LibraryEntryDao extends LibraryEntryDao {
   Future<List<LibraryEntry>> getPageWithQuery(
       int limit, int offset, String query) async {
     return _queryAdapter.queryList(
-        'SELECT * FROM LibraryEntry WHERE name LIKE ?3 ORDER BY id LIMIT ?1 OFFSET ?2',
-        mapper: (Map<String, Object?> row) => LibraryEntry(row['id'] as int?, row['name'] as String, row['unitName'] as String, row['perUnitCount'] as int, row['kcals'] as int, row['carbs'] as double, row['fat'] as double, row['protein'] as double),
+        'SELECT * FROM LibraryEntry WHERE name LIKE ?3 ORDER BY isFavourite DESC, id LIMIT ?1 OFFSET ?2',
+        mapper: (Map<String, Object?> row) => LibraryEntry(row['id'] as int?, row['name'] as String, row['unitName'] as String, row['perUnitCount'] as int, row['kcals'] as int, row['carbs'] as double, row['fat'] as double, row['protein'] as double, (row['isFavourite'] as int) != 0),
         arguments: [limit, offset, query]);
   }
 
@@ -373,7 +369,8 @@ class _$LibraryEntryDao extends LibraryEntryDao {
             row['kcals'] as int,
             row['carbs'] as double,
             row['fat'] as double,
-            row['protein'] as double));
+            row['protein'] as double,
+            (row['isFavourite'] as int) != 0));
   }
 
   @override

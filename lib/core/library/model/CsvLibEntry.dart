@@ -20,14 +20,14 @@ class CsvLibEntry {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is CsvLibEntry &&
-              runtimeType == other.runtimeType &&
-              name == other.name &&
-              unit == other.unit &&
-              kcals == other.kcals &&
-              carbs == other.carbs &&
-              fat == other.fat &&
-              proteins == other.proteins;
+      other is CsvLibEntry &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          unit == other.unit &&
+          kcals == other.kcals &&
+          carbs == other.carbs &&
+          fat == other.fat &&
+          proteins == other.proteins;
 
   @override
   int get hashCode =>
@@ -38,15 +38,6 @@ class CsvLibEntry {
       fat.hashCode ^
       proteins.hashCode;
 
-  toLibraryEntry() =>
-      LibraryEntry(
-          null,
-          name,
-          unit,
-          perUnitCount,
-          kcals,
-          carbs,
-          fat,
-          proteins);
-
+  toLibraryEntry() => LibraryEntry(
+      null, name, unit, perUnitCount, kcals, carbs, fat, proteins, false);
 }
