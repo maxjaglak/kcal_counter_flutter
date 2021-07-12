@@ -6,13 +6,11 @@ import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
 
 void main() async {
 
-  await KiwiInjector.instance.init();
+  late LibraryEntryDao dao;
 
-  final LibraryEntryDao dao = KiwiInjector.instance.getContainer().resolve<LibraryEntryDao>();
-
-  tearDownAll(() {
-    final db = KiwiInjector.instance.getContainer().resolve<AppDatabase>();
-    // db.
+  setUp(() async {
+    final db = await $FloorAppDatabase.inMemoryDatabaseBuilder().build();
+    dao = db.libraryDao;
   });
 
   test("Should execute like query", () async {
