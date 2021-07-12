@@ -9,15 +9,13 @@ class LibraryViewTab extends StatelessWidget {
 
   LibraryViewTab({Key? key}) : super(key: key);
 
-  GlobalKey<PagedLibraryListViewState> libKey = GlobalKey<PagedLibraryListViewState>();
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         PagedLibraryListView(
-          listener: TabListener(context, libKey),
-          key: libKey,
+          listener: TabListener(context, pagedLibraryListViewGlobalKey),
+          key: pagedLibraryListViewGlobalKey,
         ),
         Positioned(
             bottom: 10,

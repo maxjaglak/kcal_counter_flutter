@@ -9,14 +9,12 @@ import 'package:kcal_counter_flutter/ui/libraryedit/LibraryEditView.dart';
 
 class LibraryPickerViewPage extends StatelessWidget {
 
-  final GlobalKey<PagedLibraryListViewState> key = GlobalKey<PagedLibraryListViewState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Wybierz...")),
         body: Stack(children: [
-          PagedLibraryListView(listener: PickerListener(context), key: key),
+          PagedLibraryListView(listener: PickerListener(context), key: pagedLibraryListViewGlobalKey),
           Positioned(
               bottom: 10,
               right: 10,
@@ -34,7 +32,7 @@ class LibraryPickerViewPage extends StatelessWidget {
     final LibraryEntry libraryEntry = await Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => LibraryEditViewPage(key: UniqueKey())));
 
-    key.currentState?.updateQuery(libraryEntry.name);
+    pagedLibraryListViewGlobalKey.currentState?.updateQuery(libraryEntry.name);
   }
 
 }

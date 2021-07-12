@@ -11,6 +11,8 @@ import 'package:kcal_counter_flutter/ui/library/LibraryListItem.dart';
 
 import 'LibraryListView.dart';
 
+final GlobalKey<PagedLibraryListViewState> pagedLibraryListViewGlobalKey = GlobalKey<PagedLibraryListViewState>();
+
 class PagedLibraryListView extends StatefulWidget {
   final LibraryListListener? listener;
 
