@@ -49,8 +49,9 @@ class AddConsumptionViewState extends State<AddConsumptionView> {
           entry: _pickedEntry!, key: ObjectKey(_pickedEntry)));
     }
     if (_pickedEntry == null) {
-      widgets.add(TextButton(onPressed: () => _pick(), child: Text("Dodaj")));
+      widgets.add(TextButton(onPressed: () => _pick(), child: Text("Dodaj z listy")));
     } else {
+      widgets.add(Container(height:20));
       widgets.add(
           TextButton(onPressed: () => _removePick(), child: Text("Zmień")));
     }
@@ -61,13 +62,19 @@ class AddConsumptionViewState extends State<AddConsumptionView> {
           onChanged: (number) => _numberChanged(number),
           keyboardType:
               TextInputType.numberWithOptions(signed: false, decimal: false)));
+
+      widgets.add(Text("Ilość [${_pickedEntry!.unitName}]"));
     }
 
     if (_shouldDisplaySaveButton) {
+      widgets.add(Container(height:20));
       widgets.add(TextButton(onPressed: () => _save(), child: Text("Zapisz")));
     }
 
-    return Column(children: widgets);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(children: widgets),
+    );
   }
 
   void _pick() async {
