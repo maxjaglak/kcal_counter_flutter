@@ -106,7 +106,7 @@ class TodayTabViewState extends State<TodayTabView> implements ConsumptionListLi
   void deleteConsumptionClicked(Consumption consumption) {
     showDialog(context: context, builder: (context) => AlertDialog(
       title: Text("Usunąć?"),
-      content: Text("Czy na pewno usunąć pozycje: ${consumption.name} / ${consumption.amount} [${consumption.calculationUnit}?"),
+      content: Text("Czy na pewno usunąć pozycje: ${consumption.name} / ${consumption.amount} [${consumption.calculationUnit}]?"),
       actions: [
         TextButton(onPressed: ()  {
           _deleteConsumption(this.context, consumption);

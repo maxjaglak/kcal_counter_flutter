@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kcal_counter_flutter/core/history/model/Consumption.dart';
 import 'package:kcal_counter_flutter/core/history/model/Day.dart';
 import 'package:kcal_counter_flutter/ui/addconsumption/AddConsumptionView.dart';
+import 'package:kcal_counter_flutter/ui/common/CustomCardView.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/ConsumptionListItemView.dart';
 
 class ConsumptionListView extends StatelessWidget {
@@ -32,9 +33,11 @@ class ConsumptionListView extends StatelessWidget {
 
   Widget _item(BuildContext context, int position) {
     final item = consumptions[position];
-    return InkWell(
-      onLongPress: () => listener.deleteConsumptionClicked(item),
-        child: ConsumptionListItemView(key: ObjectKey(item), consumption: item));
+    return CustomCardView(
+      child: InkWell(
+        onLongPress: () => listener.deleteConsumptionClicked(item),
+          child: ConsumptionListItemView(key: ObjectKey(item), consumption: item)),
+    );
   }
 
 }

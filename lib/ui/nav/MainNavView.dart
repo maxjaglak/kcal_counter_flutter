@@ -46,7 +46,7 @@ class MobileNavigationView extends StatelessWidget {
             bottomNavigationBar: BottomNavigationBar(
                 items: _navItems,
                 currentIndex: state.selectedView,
-                selectedItemColor: Colors.lightBlue,
+                selectedItemColor: Color.fromARGB(255, 57, 214, 138),
                 unselectedItemColor: Colors.grey,
                 onTap: (index) => BlocProvider.of<NavigationBloc>(context)
                     .add(NavEvent(index)))));

@@ -5,10 +5,13 @@ import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
 import 'package:kcal_counter_flutter/core/library/dao/LibraryEntryDao.dart';
 import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
+import 'package:kcal_counter_flutter/ui/common/CustomCardView.dart';
 import 'package:kcal_counter_flutter/ui/commonwidget/SearchBarWidget.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryListItem.dart';
 
 import 'LibraryListView.dart';
+
+final GlobalKey<PagedLibraryListViewState> pagedLibraryListViewGlobalKey = GlobalKey<PagedLibraryListViewState>();
 
 class PagedLibraryListView extends StatefulWidget {
   final LibraryListListener? listener;
@@ -82,10 +85,12 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
   }
 
   Widget _listItem(BuildContext context, LibraryEntry entry) {
-    return InkWell(
-        onTap: () => _tap(entry),
-        onLongPress: () => _confirmDelete(context, entry),
-        child: LibraryListItemView(entry: entry, key: ObjectKey(entry)));
+    return CustomCardView(
+      child: InkWell(
+          onTap: () => _tap(entry),
+          onLongPress: () => _confirmDelete(context, entry),
+          child: LibraryListItemView(entry: entry, key: ObjectKey(entry))),
+    );
   }
 
   @override
