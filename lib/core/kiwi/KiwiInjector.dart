@@ -10,6 +10,7 @@ import 'package:kcal_counter_flutter/core/library/dao/LibraryEntryDao.dart';
 import 'package:kcal_counter_flutter/ui/history/HistoryCubit.dart';
 import 'package:kcal_counter_flutter/ui/libraryedit/LibraryEditCubit.dart';
 import 'package:kcal_counter_flutter/ui/nav/NavigationBloc.dart';
+import 'package:kcal_counter_flutter/ui/settingstab/SettingsTabCubit.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/TodayViewCubit.dart';
 import 'package:kiwi/kiwi.dart';
 
@@ -54,6 +55,8 @@ class KiwiInjector {
     container.registerFactory((c) => HistoryCubit(c.resolve<DayDao>()));
 
     container.registerFactory((c) => LibraryEditCubit(c.resolve<LibraryEntryDao>()));
+
+    container.registerFactory((c) => SettingsTabCubit(c.resolve<LibraryEntryDao>()));
 
     this._container = container;
   }

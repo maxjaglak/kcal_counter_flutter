@@ -5,6 +5,7 @@ import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
 import 'package:kcal_counter_flutter/ui/history/HistoryView.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryViewTab.dart';
 import 'package:kcal_counter_flutter/ui/nav/NavigationBloc.dart';
+import 'package:kcal_counter_flutter/ui/settingstab/SettingsTabView.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/TodayTabView.dart';
 
 class MainNavViewPage extends StatelessWidget {
@@ -30,12 +31,13 @@ class MobileNavigationViewBloc extends StatelessWidget {
 }
 
 class MobileNavigationView extends StatelessWidget {
-  List<Widget> _views = <Widget>[TodayTabViewBloc(), HistoryViewCubit(), LibraryViewTab()];
+  List<Widget> _views = <Widget>[TodayTabViewBloc(), HistoryViewCubit(), LibraryViewTab(), SettingsTabViewCubit()];
 
   List<BottomNavigationBarItem> _navItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: "Dzisiaj"),
     BottomNavigationBarItem(icon: Icon(Icons.history), label: "Historia"),
-    BottomNavigationBarItem(icon: Icon(Icons.library_books), label: "Tabela")
+    BottomNavigationBarItem(icon: Icon(Icons.library_books), label: "Tabela"),
+    BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Ustawienia")
   ];
 
   @override

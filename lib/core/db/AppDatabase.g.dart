@@ -374,6 +374,11 @@ class _$LibraryEntryDao extends LibraryEntryDao {
   }
 
   @override
+  Future<void> deleteAll() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM LibraryEntry');
+  }
+
+  @override
   Future<void> insert(LibraryEntry libraryEntry) async {
     await _libraryEntryInsertionAdapter.insert(
         libraryEntry, OnConflictStrategy.abort);

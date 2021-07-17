@@ -10,7 +10,7 @@ class AppInitService {
   static initApp() async {
     await KiwiInjector.instance.init();
 
-    await _importCsvLibrary();
+    // await _importCsvLibrary();
   }
 
   static Future _importCsvLibrary() async {
