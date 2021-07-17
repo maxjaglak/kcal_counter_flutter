@@ -1,9 +1,11 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
 import 'package:kcal_counter_flutter/ui/settingstab/SettingsTabCubit.dart';
 import 'package:kcal_counter_flutter/ui/tools/GeneralUI.dart';
+import 'package:kcal_counter_flutter/ui/tools/SnackbarHelper.dart';
 import 'package:kcal_counter_flutter/ui/widget/SettingsButton.dart';
 
 class SettingsTabViewCubit extends StatelessWidget {
@@ -23,7 +25,15 @@ class SettingsTabView extends StatelessWidget {
     return BlocBuilder<SettingsTabCubit, SettingsTabState>(builder: (context, state) {
       if(state.loading) return GeneralUI.progressIndicator();
 
-      else return _body(context);
+      if(state.error != null) {
+        SnackbarHelper.error(context, state.error!);
+      }
+
+      if(state.success != null) {
+        SnackbarHelper.green(context, state.success!);
+      }
+
+      return _body(context);
     }, bloc: BlocProvider.of<SettingsTabCubit>(context));
   }
 
@@ -31,6 +41,11 @@ class SettingsTabView extends StatelessWidget {
     return Column(
       children: [
         SettingsButton(text: "Wyczyść tabelę kalori", listener: () => _clearLibrary(context)),
+        SettingsButton(text: "Exportuj tabelę do CSV", listener: () => _exportLibrary(context)),
+        SettingsButton(text: "Importuj tabelę z CSV", listener: () => _importLibraryFromCsv(context)),
+        SettingsButton(text: "Jak zbudować plik CSV?", listener: () => _csvHelp(context)),
+        SettingsButton(text: "Licencja", listener: () => _license(context)),
+        SettingsButton(text: "Credits & info", listener: () => _credits(context)),
       ],
     );
   }
@@ -51,5 +66,29 @@ class SettingsTabView extends StatelessWidget {
       ],
     ));
   }
+
+  _exportLibrary(BuildContext context) {}
+
+  _importLibraryFromCsv(BuildContext context) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        withData: true
+      );
+
+      if (result != null && result.files.isNotEmpty == true) {
+        final file = result.files[0];
+        BlocProvider.of<SettingsTabCubit>(context).importLibrary(file);
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  _csvHelp(BuildContext context) {}
+
+  _license(BuildContext context) {}
+
+  _credits(BuildContext context) {}
 
 }
