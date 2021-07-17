@@ -67,7 +67,9 @@ class SettingsTabView extends StatelessWidget {
     ));
   }
 
-  _exportLibrary(BuildContext context) {}
+  _exportLibrary(BuildContext context) {
+    BlocProvider.of<SettingsTabCubit>(context).exportLibraryAsCsv();
+  }
 
   _importLibraryFromCsv(BuildContext context) async {
     try {
