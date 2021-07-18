@@ -61,21 +61,28 @@ class CsvImportService {
   }
 
   CsvLibEntry _parseLine(List line) {
-    print("trying to parse line: $line");
-    final name = line[0];
-    final kcals = parseDouble(line[1]).toInt();
-    final proteins = parseDouble(line[2]);
-    final carbs = parseDouble(line[3]);
-    final fats = parseDouble(line[4]);
-    return CsvLibEntry(
-      name,
-      "gramy",
-      100,
-      kcals,
-      carbs,
-      fats,
-      proteins
-    );
+    try {
+      print("trying to parse line: $line, size: ${line.length}");
+      final name = line[0];
+      final perUnitCount = parseDouble(line[1]).toInt();
+      final unitName = line[2];
+      final kcals = parseDouble(line[3]).toInt();
+      final carbs = parseDouble(line[4]);
+      final fats = parseDouble(line[5]);
+      final proteins = parseDouble(line[6]);
+      return CsvLibEntry(
+          name,
+          unitName,
+          perUnitCount,
+          kcals,
+          carbs,
+          fats,
+          proteins
+      );
+    } on Exception catch(e) {
+      print(e);
+      throw e;
+    }
   }
 
   int parseInt(String text) {

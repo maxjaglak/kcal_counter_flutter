@@ -87,10 +87,16 @@ class SettingsTabView extends StatelessWidget {
     }
   }
 
-  _csvHelp(BuildContext context) {}
+  _csvHelp(BuildContext context) {
+    SnackbarHelper.error(context, "todo");
+  }
 
-  _license(BuildContext context) {}
+  _license(BuildContext context) {
+    SnackbarHelper.error(context, "todo");
+  }
 
-  _credits(BuildContext context) {}
+  _credits(BuildContext context) {
+    SnackbarHelper.error(context, "todo");
+  }
 
 }

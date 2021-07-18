@@ -36,9 +36,9 @@ class CsvExportService {
 
   _toCsvLine(LibraryEntry entry) {
     List<String> data = [
-      entry.name,
+      _clean(entry.name),
       _wrapQuotes(entry.perUnitCount.toString()),
-      entry.unitName,
+      _clean(entry.unitName),
       _wrapQuotes(entry.kcals.toString()),
       _wrapQuotes(roundingHelper.roundOneDecimalPlace(entry.carbs)),
       _wrapQuotes(roundingHelper.roundOneDecimalPlace(entry.fat)),
@@ -48,5 +48,8 @@ class CsvExportService {
     return data.join(";");
   }
 
-  String _wrapQuotes(String text) => "\"$text\"";
+  String _wrapQuotes(String text) => "\"${_clean(text)}\"";
+
+  String _clean(String text) => text.replaceAll(";", "");
+
 }
