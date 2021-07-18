@@ -7,7 +7,9 @@ class SnackbarHelper {
         content: Text(message, style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.red,
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Future.delayed(Duration(milliseconds: 100)).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
   }
 
   static void green(BuildContext context, String message) {
@@ -15,6 +17,8 @@ class SnackbarHelper {
       content: Text(message, style: TextStyle(color: Colors.white70)),
       backgroundColor: Colors.green,
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Future.delayed(Duration(milliseconds: 100)).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
   }
 }
