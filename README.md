@@ -11,11 +11,17 @@ Kcal counter flutter
 
 (It's very much "work in progress")
 
-- nicer UI :)
-- some details of lib entries
+- finish settings tab
+- langs support
 - nicer search
 - possibility to edit consumptions (at least these added 'today')
-- langs support
+- check details of past days
+- edit quantity of item in the current day
+- import / export history data (not only library)
+- drop progress bars where they're not needed
+- some bugs fixing 
+-- portrait only
+-- library not refreshed after adding new entry
 
 ## Attributions:
 
