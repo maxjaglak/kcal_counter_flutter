@@ -146,7 +146,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Kcale w porcji"),
         FormFieldHelper.textField(_carbsController,
             autoCorrect: false,
-            textInputType: TextInputType.number,
+            textInputType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
                 value != null && (double.tryParse(value) ?? 0) >= 0
                     ? null
@@ -155,7 +155,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Węgle w porcji"),
         FormFieldHelper.textField(_fatsController,
             autoCorrect: false,
-            textInputType: TextInputType.number,
+            textInputType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
                 value != null && (double.tryParse(value) ?? 0) >= 0
                     ? null
@@ -164,7 +164,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Tłuszcze w porcji"),
         FormFieldHelper.textField(_proteinController,
             autoCorrect: false,
-            textInputType: TextInputType.number,
+            textInputType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
                 value != null && (double.tryParse(value) ?? 0) >= 0
                     ? null
@@ -201,11 +201,11 @@ class LibraryEditViewState extends State<LibraryEditView> {
     libraryEntry.kcals =
         int.tryParse(_kcalsController.text.toString()) ?? libraryEntry.kcals;
     libraryEntry.carbs =
-        double.tryParse(_carbsController.text.toString()) ?? libraryEntry.carbs;
+        double.tryParse(_carbsController.text.toString().replaceAll(",", ".")) ?? libraryEntry.carbs;
     libraryEntry.fat =
-        double.tryParse(_fatsController.text.toString()) ?? libraryEntry.fat;
+        double.tryParse(_fatsController.text.toString().replaceAll(",", ".")) ?? libraryEntry.fat;
     libraryEntry.protein =
-        double.tryParse(_proteinController.text.toString()) ??
+        double.tryParse(_proteinController.text.toString().replaceAll(",", ".")) ??
             libraryEntry.protein;
     libraryEntry.isFavourite = _isFavourite;
 
