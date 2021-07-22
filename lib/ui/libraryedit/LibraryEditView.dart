@@ -115,6 +115,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
             libraryEntry.id == null ? "Dodaj nowy wpis" : "Edytuj"),
         FormFieldHelper.textField(_nameController,
             autoCorrect: true,
+            textInputAction: TextInputAction.next,
             validator: (value) => value?.isNotEmpty != true
                 ? "Pole nazwa nie może być puste"
                 : null,
@@ -122,12 +123,14 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Nazwa"),
         FormFieldHelper.textField(_unitNameController,
             autoCorrect: false,
+            textInputAction: TextInputAction.next,
             validator: (value) =>
                 value?.isNotEmpty != true ? "Pole nie może być puste" : null,
             validationCallback: _validationCallback),
         TextHelper.label("Nazwa jednostki"),
         FormFieldHelper.textField(_perUnitCountController,
             autoCorrect: false,
+            textInputAction: TextInputAction.next,
             textInputType: TextInputType.number,
             validator: (value) => value != null &&
                     (int.tryParse(value) ?? 0) > 0
@@ -137,6 +140,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Ile jednostek w porcji (np. 100g)"),
         FormFieldHelper.textField(_kcalsController,
             autoCorrect: false,
+            textInputAction: TextInputAction.next,
             textInputType: TextInputType.number,
             validator: (value) =>
                 value != null && (int.tryParse(value) ?? 0) > 0
@@ -146,6 +150,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Kcale w porcji"),
         FormFieldHelper.textField(_carbsController,
             autoCorrect: false,
+            textInputAction: TextInputAction.next,
             textInputType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
                 value != null && (double.tryParse(value) ?? 0) >= 0
@@ -155,6 +160,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Węgle w porcji"),
         FormFieldHelper.textField(_fatsController,
             autoCorrect: false,
+            textInputAction: TextInputAction.next,
             textInputType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
                 value != null && (double.tryParse(value) ?? 0) >= 0
@@ -164,6 +170,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
         TextHelper.label("Tłuszcze w porcji"),
         FormFieldHelper.textField(_proteinController,
             autoCorrect: false,
+            textInputAction: TextInputAction.done,
             textInputType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
                 value != null && (double.tryParse(value) ?? 0) >= 0

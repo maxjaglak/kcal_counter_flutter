@@ -9,7 +9,8 @@ class FormFieldHelper {
       String hint = "",
       bool autoCorrect = true,
       bool obscureText = false,
-      TextInputType textInputType = TextInputType.text}) {
+      TextInputType textInputType = TextInputType.text,
+      TextInputAction textInputAction = TextInputAction.done}) {
     return TextFormField(
         autovalidateMode: AutovalidateMode.always,
         validator: _wrapValidation(controller, validator, validationCallback),
@@ -17,6 +18,7 @@ class FormFieldHelper {
         controller: controller,
         obscureText: obscureText,
         keyboardType: textInputType,
+        textInputAction: textInputAction,
         style: TextStyle(
           color: textColor,
           fontSize: 15.0,
