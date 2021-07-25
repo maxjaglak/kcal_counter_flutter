@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
+import 'package:kcal_counter_flutter/core/library/LibraryQueryService.dart';
 import 'package:kcal_counter_flutter/core/library/dao/LibraryEntryDao.dart';
 import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
@@ -26,6 +27,7 @@ class PagedLibraryListView extends StatefulWidget {
 class PagedLibraryListViewState extends State<PagedLibraryListView>
     implements SearchBarListener {
   late LibraryEntryDao _libraryEntryDao;
+  late LibraryQueryService _libraryQuerySevice;
   SearchBarWidget? search = null;
 
   final int _pageSize = 100;
@@ -39,6 +41,8 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
     super.initState();
     _libraryEntryDao =
         KiwiInjector.instance.getContainer().resolve<LibraryEntryDao>();
+    _libraryQuerySevice =
+        KiwiInjector.instance.getContainer().resolve<LibraryQueryService>();
 
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
@@ -62,11 +66,7 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
   }
 
   Future<List<LibraryEntry>> _getEntries(int pageKey) async {
-    if(_query == null) {
-      return await _libraryEntryDao.getPage(_pageSize, _pageSize * pageKey);
-    } else {
-      return await _libraryEntryDao.getPageWithQuery(_pageSize, _pageSize * pageKey, "%${_query!}%");
-    }
+    return await _libraryQuerySevice.search(_query, pageKey, _pageSize);
   }
 
   @override

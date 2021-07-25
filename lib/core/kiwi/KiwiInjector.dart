@@ -7,6 +7,7 @@ import 'package:kcal_counter_flutter/core/history/dao/ConsumptionDao.dart';
 import 'package:kcal_counter_flutter/core/history/dao/DayDao.dart';
 import 'package:kcal_counter_flutter/core/library/CsvExportService.dart';
 import 'package:kcal_counter_flutter/core/library/CsvImportService.dart';
+import 'package:kcal_counter_flutter/core/library/LibraryQueryService.dart';
 import 'package:kcal_counter_flutter/core/library/dao/LibraryEntryDao.dart';
 import 'package:kcal_counter_flutter/ui/history/HistoryCubit.dart';
 import 'package:kcal_counter_flutter/ui/libraryedit/LibraryEditCubit.dart';
@@ -52,6 +53,9 @@ class KiwiInjector {
 
     container.registerSingleton(
         (c) => CsvExportService(c.resolve<LibraryEntryDao>()));
+
+    container.registerSingleton((c) => LibraryQueryService(
+        c.resolve<LibraryEntryDao>(), c.resolve<AppDatabase>()));
 
     container.registerInstance(NavigationBloc());
     container.registerFactory(
