@@ -96,7 +96,7 @@ class LibraryEditViewState extends State<LibraryEditView> {
   }
 
   Widget _body(BuildContext context, LibraryEntry libraryEntry) {
-    if(libraryEntry.id != null && !_isDateFilledOnLoad) {
+    if (libraryEntry.id != null && !_isDateFilledOnLoad) {
       _nameController.text = libraryEntry.name;
       _unitNameController.text = libraryEntry.unitName;
       _perUnitCountController.text = libraryEntry.perUnitCount.toString();
@@ -108,79 +108,90 @@ class LibraryEditViewState extends State<LibraryEditView> {
       _isDateFilledOnLoad = true;
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextHelper.titleText(
-            libraryEntry.id == null ? "Dodaj nowy wpis" : "Edytuj"),
-        FormFieldHelper.textField(_nameController,
-            autoCorrect: true,
-            validator: (value) => value?.isNotEmpty != true
-                ? "Pole nazwa nie może być puste"
-                : null,
-            validationCallback: _validationCallback),
-        TextHelper.label("Nazwa"),
-        FormFieldHelper.textField(_unitNameController,
-            autoCorrect: false,
-            validator: (value) =>
-                value?.isNotEmpty != true ? "Pole nie może być puste" : null,
-            validationCallback: _validationCallback),
-        TextHelper.label("Nazwa jednostki"),
-        FormFieldHelper.textField(_perUnitCountController,
-            autoCorrect: false,
-            textInputType: TextInputType.number,
-            validator: (value) => value != null &&
-                    (int.tryParse(value) ?? 0) > 0
-                ? null
-                : "Pole ilość jednostek w porcji musi zawierać liczbę dodatnią",
-            validationCallback: _validationCallback),
-        TextHelper.label("Ile jednostek w porcji (np. 100g)"),
-        FormFieldHelper.textField(_kcalsController,
-            autoCorrect: false,
-            textInputType: TextInputType.number,
-            validator: (value) =>
-                value != null && (int.tryParse(value) ?? 0) > 0
-                    ? null
-                    : "Pole kalorie w porcji musi zawierać liczbę dodatnią",
-            validationCallback: _validationCallback),
-        TextHelper.label("Kcale w porcji"),
-        FormFieldHelper.textField(_carbsController,
-            autoCorrect: false,
-            textInputType: TextInputType.number,
-            validator: (value) =>
-                value != null && (double.tryParse(value) ?? 0) >= 0
-                    ? null
-                    : "Pole węgle w porcji musi zawierać liczbę >= 0",
-            validationCallback: _validationCallback),
-        TextHelper.label("Węgle w porcji"),
-        FormFieldHelper.textField(_fatsController,
-            autoCorrect: false,
-            textInputType: TextInputType.number,
-            validator: (value) =>
-                value != null && (double.tryParse(value) ?? 0) >= 0
-                    ? null
-                    : "Pole tłuszcze w porcji musi zawierać liczbę >= 0",
-            validationCallback: _validationCallback),
-        TextHelper.label("Tłuszcze w porcji"),
-        FormFieldHelper.textField(_proteinController,
-            autoCorrect: false,
-            textInputType: TextInputType.number,
-            validator: (value) =>
-                value != null && (double.tryParse(value) ?? 0) >= 0
-                    ? null
-                    : "Pole białko w porcji musi zawierać liczbę >= 0",
-            validationCallback: _validationCallback),
-        TextHelper.label("Białko w porcji"),
-        Row(
-          children: [
-            Checkbox(value: _isFavourite, onChanged: (value) => _onFavouriteChanged(value ?? false)),
-            Text("Ulubiony (wyżej na liście)")
-          ],
-        ),
-        TextButton(
-            onPressed: () => _save(context, libraryEntry),
-            child: Text("Zapisz"))
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextHelper.titleText(
+              libraryEntry.id == null ? "Dodaj nowy wpis" : "Edytuj"),
+          FormFieldHelper.textField(_nameController,
+              autoCorrect: true,
+              textInputAction: TextInputAction.next,
+              validator: (value) => value?.isNotEmpty != true
+                  ? "Pole nazwa nie może być puste"
+                  : null,
+              validationCallback: _validationCallback),
+          TextHelper.label("Nazwa"),
+          FormFieldHelper.textField(_unitNameController,
+              autoCorrect: false,
+              textInputAction: TextInputAction.next,
+              validator: (value) =>
+                  value?.isNotEmpty != true ? "Pole nie może być puste" : null,
+              validationCallback: _validationCallback),
+          TextHelper.label("Nazwa jednostki"),
+          FormFieldHelper.textField(_perUnitCountController,
+              autoCorrect: false,
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.number,
+              validator: (value) => value != null &&
+                      (int.tryParse(value) ?? 0) > 0
+                  ? null
+                  : "Pole ilość jednostek w porcji musi zawierać liczbę dodatnią",
+              validationCallback: _validationCallback),
+          TextHelper.label("Ile jednostek w porcji (np. 100g)"),
+          FormFieldHelper.textField(_kcalsController,
+              autoCorrect: false,
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.number,
+              validator: (value) =>
+                  value != null && (int.tryParse(value) ?? 0) > 0
+                      ? null
+                      : "Pole kalorie w porcji musi zawierać liczbę dodatnią",
+              validationCallback: _validationCallback),
+          TextHelper.label("Kcale w porcji"),
+          FormFieldHelper.textField(_carbsController,
+              autoCorrect: false,
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.numberWithOptions(decimal: true),
+              validator: (value) =>
+                  value != null && (double.tryParse(value) ?? 0) >= 0
+                      ? null
+                      : "Pole węgle w porcji musi zawierać liczbę >= 0",
+              validationCallback: _validationCallback),
+          TextHelper.label("Węgle w porcji"),
+          FormFieldHelper.textField(_fatsController,
+              autoCorrect: false,
+              textInputAction: TextInputAction.next,
+              textInputType: TextInputType.numberWithOptions(decimal: true),
+              validator: (value) =>
+                  value != null && (double.tryParse(value) ?? 0) >= 0
+                      ? null
+                      : "Pole tłuszcze w porcji musi zawierać liczbę >= 0",
+              validationCallback: _validationCallback),
+          TextHelper.label("Tłuszcze w porcji"),
+          FormFieldHelper.textField(_proteinController,
+              autoCorrect: false,
+              textInputAction: TextInputAction.done,
+              textInputType: TextInputType.numberWithOptions(decimal: true),
+              validator: (value) =>
+                  value != null && (double.tryParse(value) ?? 0) >= 0
+                      ? null
+                      : "Pole białko w porcji musi zawierać liczbę >= 0",
+              validationCallback: _validationCallback),
+          TextHelper.label("Białko w porcji"),
+          Row(
+            children: [
+              Checkbox(
+                  value: _isFavourite,
+                  onChanged: (value) => _onFavouriteChanged(value ?? false)),
+              Text("Ulubiony (wyżej na liście)")
+            ],
+          ),
+          TextButton(
+              onPressed: () => _save(context, libraryEntry),
+              child: Text("Zapisz"))
+        ],
+      ),
     );
   }
 
@@ -200,13 +211,15 @@ class LibraryEditViewState extends State<LibraryEditView> {
             libraryEntry.perUnitCount;
     libraryEntry.kcals =
         int.tryParse(_kcalsController.text.toString()) ?? libraryEntry.kcals;
-    libraryEntry.carbs =
-        double.tryParse(_carbsController.text.toString()) ?? libraryEntry.carbs;
+    libraryEntry.carbs = double.tryParse(
+            _carbsController.text.toString().replaceAll(",", ".")) ??
+        libraryEntry.carbs;
     libraryEntry.fat =
-        double.tryParse(_fatsController.text.toString()) ?? libraryEntry.fat;
-    libraryEntry.protein =
-        double.tryParse(_proteinController.text.toString()) ??
-            libraryEntry.protein;
+        double.tryParse(_fatsController.text.toString().replaceAll(",", ".")) ??
+            libraryEntry.fat;
+    libraryEntry.protein = double.tryParse(
+            _proteinController.text.toString().replaceAll(",", ".")) ??
+        libraryEntry.protein;
     libraryEntry.isFavourite = _isFavourite;
 
     await BlocProvider.of<LibraryEditCubit>(context).save(libraryEntry);

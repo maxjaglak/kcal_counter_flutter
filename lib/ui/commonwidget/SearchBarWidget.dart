@@ -28,6 +28,7 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 autofocus: false,
+                autocorrect: false,
                 controller: _controller,
                 onChanged: (text) => _textChanged(text),
               ),

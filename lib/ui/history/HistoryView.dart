@@ -22,7 +22,7 @@ class HistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HistoryCubit, HistoryState>(
         builder: (constext, state) {
-          if(state.loading) return GeneralUI.progressIndicator();
+          if(state.loading) return Container();
           else return _daysList(state.days!);
         },
         bloc: BlocProvider.of<HistoryCubit>(context));

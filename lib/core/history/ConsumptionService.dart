@@ -81,7 +81,7 @@ class ConsumptionService {
       totalKcals += consumption.kcals;
       totalCarbs += consumption.carbs;
       totalFats += consumption.fat;
-      totalProteins = consumption.protein;
+      totalProteins += consumption.protein;
     }
 
     return ConsumptionSummary(

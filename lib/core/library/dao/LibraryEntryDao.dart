@@ -3,9 +3,6 @@ import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
 
 @dao
 abstract class LibraryEntryDao {
-  @Query("SELECT * FROM LibraryEntry WHERE name like :query")
-  Future<List<LibraryEntry>> searchLibrary(String query);
-
   @Update()
   Future<void> update(LibraryEntry libraryEntry);
 
@@ -20,6 +17,9 @@ abstract class LibraryEntryDao {
       "SELECT * FROM LibraryEntry WHERE name LIKE :query ORDER BY isFavourite DESC, id LIMIT :limit OFFSET :offset")
   Future<List<LibraryEntry>> getPageWithQuery(
       int limit, int offset, String query);
+
+  @Query("SELECT * FROM LibraryEntry WHERE name like :query")
+  Future<List<LibraryEntry>> searchLibrary(String query);
 
   @Query("SELECT * FROM LibraryEntry ORDER BY id")
   Future<List<LibraryEntry>> getAll();
