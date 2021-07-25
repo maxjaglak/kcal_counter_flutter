@@ -33,7 +33,7 @@ class TodayTabViewState extends State<TodayTabView> implements ConsumptionListLi
         bloc: BlocProvider.of<TodayViewCubit>(context),
         builder: (context, state) {
           if (state.loading) {
-            return GeneralUI.progressIndicator();
+            return Container();
           } else if (!state.isDayOpen) {
             return _dayNotOpenedBody(context);
           } else {
