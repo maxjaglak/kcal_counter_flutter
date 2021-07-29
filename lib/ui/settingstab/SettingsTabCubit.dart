@@ -18,14 +18,14 @@ class SettingsTabCubit extends Cubit<SettingsTabState> {
   void deleteLibrary() async {
     emit(SettingsTabState(loading: true));
     await libraryEntryDao.deleteAll();
-    emit(SettingsTabState(success: "Usunięto"));
+    emit(SettingsTabState(success: SuccessMessage.Deleted));
   }
 
   void importLibrary(PlatformFile file) async {
     try {
       emit(SettingsTabState(loading: true));
       await csvImportService.importCsvLibrary(file);
-      emit(SettingsTabState(success: "Import zakończony"));
+      emit(SettingsTabState(success: SuccessMessage.ImportFinished));
     } on AppException catch (appException) {
       print(appException);
       emit(SettingsTabState(error: appException.error.getMessage()));
@@ -51,7 +51,12 @@ class SettingsTabCubit extends Cubit<SettingsTabState> {
 class SettingsTabState {
   final bool loading;
   final String? error;
-  final String? success;
+  final SuccessMessage? success;
 
   SettingsTabState({this.loading = false, this.error, this.success});
+}
+
+enum SuccessMessage {
+  Deleted,
+  ImportFinished,
 }

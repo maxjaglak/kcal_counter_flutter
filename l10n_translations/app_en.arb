@@ -1,0 +1,108 @@
+{
+  "appTitle": "Kcal counter",
+  "kcal": "Kcal",
+  "commonYes": "Yes",
+  "commonNo": "No",
+  "commonCancel": "Cancel",
+  "addConsumption": "Add consumption",
+  "addFromList": "Add from the list",
+  "change": "Change",
+  "save": "Save",
+  "amount": "Amount",
+  "chooseDots": "Choose...",
+  "navTabToday": "Today",
+  "navTabHistory": "History",
+  "navTabLibrary": "Library",
+  "navTabSettings": "Settings",
+  "libraryDeleteQuestionTitle": "Delete?",
+  "libraryDeleteQuestionContent": "Do you want to delete: {name}?",
+  "@libraryDeleteQuestionContent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "editDefaultUnit": "g",
+  "editAddNewEntry": "Add new entry",
+  "editEdit": "Edit",
+  "editLabelName": "Name",
+  "editLabelUnitName": "Unit name",
+  "editLabelHowManyUnitsInEntry": "How many units in this description? (ex. 100g)",
+  "editLabelKcalInEntry": "Kcals in entry",
+  "editLabelCarbsInEntry": "Carbs in entry",
+  "editLabelFatInEntry": "Fat in entry",
+  "editLabelProteinInEntry": "Proteins in entry",
+  "editLabelFavourite": "Favourite (higher in the results)",
+  "editValidationNameCannotBeEmpty": "Name field cannot be empty!",
+  "editValidationFieldCannotBeEmpty": "Field cannot be empty!",
+  "editValidationUnitCountMustContainInteger": "Field unit number must contain positive integer!",
+  "editValidationKcalsMustContainInteger": "Kcal field must contain positive integer!",
+  "editValidationCarbsCountMustContainInteger": "Carbs have to be positive integer or zero!",
+  "editValidationFatCountMustContainInteger": "Fat must be positive integer or zero!",
+  "editValidationProteinCountMustContainInteger": "Proteins have to be positive integer or zero!",
+  "settingsLabelClearLibrary": "Clear library (calories table)",
+  "settingsLabelExportLibraryToCsv": "Export library to CSV",
+  "settingsLabelImportLibraryFromCsv": "Import CSV file to library",
+  "settingsLabelHowToBuildCsvFile": "Hot to build CSV file",
+  "settingsLabelLicense": "License",
+  "settingsLabelCreditsAndInfo": "Credits & Info",
+  "settingsConfirmClearLibraryTitle": "Do you really want to clean library?",
+  "settingsConfirmClearLibraryContent": "Do you really want to clean all data in the library? THIS OPERATION CANNOT BE REVERTED!",
+  "settingsMessageImportFinished": "Import finished",
+  "settingsMessageLibraryDeleted": "Library has been deleted",
+  "consumptionNoElements": "No elements",
+  "summaryKcalCount": "Kcal: {count}",
+  "@summaryKcalCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryCarbsCount": "Carbs: {count} g",
+  "@summaryCarbsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryFatCount": "Fat: {count} g",
+  "@summaryFatCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryProteinCount": "Protein: {count} g",
+  "@summaryProteinCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryItemsCount": "Total items: {count}",
+  "@summaryItemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryLabelEmpty": "It's empty here...",
+  "summaryLabelStartNewDay": "Start a new day :)",
+  "summaryConfirmDeleteTitle": "Delete?",
+  "summaryConfirmDeleteContent": "Do you want to delete {name}?",
+  "@summaryConfirmDeleteContent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "today": "Today",
+  "yesterday": "Yesterday"
+}

@@ -21,7 +21,7 @@ class HistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HistoryCubit, HistoryState>(
-        builder: (constext, state) {
+        builder: (context, state) {
           if(state.loading) return Container();
           else return _daysList(state.days!);
         },

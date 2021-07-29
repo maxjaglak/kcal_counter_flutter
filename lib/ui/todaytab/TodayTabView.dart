@@ -7,7 +7,7 @@ import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
 import 'package:kcal_counter_flutter/ui/addconsumption/AddConsumptionView.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/ConsumtionListView.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/SummaryView.dart';
-import 'package:kcal_counter_flutter/ui/tools/GeneralUI.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'TodayViewCubit.dart';
 
@@ -49,10 +49,10 @@ class TodayTabViewState extends State<TodayTabView> implements ConsumptionListLi
           child: Center(
             child: Column(
               children: [
-                Text("Pusto tutaj..."),
+                Text(AppLocalizations.of(context)!.summaryLabelEmpty),
                 TextButton(
                     onPressed: () => _startDay(context),
-                    child: Text("Zacznij dzisiejszy dzień :)"))
+                    child: Text(AppLocalizations.of(context)!.summaryLabelStartNewDay))
               ],
             ),
           )),
@@ -105,16 +105,16 @@ class TodayTabViewState extends State<TodayTabView> implements ConsumptionListLi
   @override
   void deleteConsumptionClicked(Consumption consumption) {
     showDialog(context: context, builder: (context) => AlertDialog(
-      title: Text("Usunąć?"),
-      content: Text("Czy na pewno usunąć pozycje: ${consumption.name} / ${consumption.amount} [${consumption.calculationUnit}]?"),
+      title: Text(AppLocalizations.of(context)!.summaryConfirmDeleteTitle),
+      content: Text(AppLocalizations.of(context)!.summaryConfirmDeleteContent("${consumption.name} / ${consumption.amount} [${consumption.calculationUnit}]")),
       actions: [
         TextButton(onPressed: ()  {
           _deleteConsumption(this.context, consumption);
           Navigator.of(this.context).pop();
-        }, child: Text("Tak")),
+        }, child: Text(AppLocalizations.of(context)!.commonYes)),
         TextButton(onPressed: ()  {
           Navigator.of(this.context).pop();
-        }, child: Text("Nie")),
+        }, child: Text(AppLocalizations.of(context)!.commonNo)),
       ],
     ));
   }

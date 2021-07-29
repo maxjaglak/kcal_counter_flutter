@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kcal_counter_flutter/core/history/model/Consumption.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConsumptionListItemView extends StatelessWidget {
   final Consumption consumption;
@@ -33,7 +34,7 @@ class ConsumptionListItemView extends StatelessWidget {
               Image(image: AssetImage("assets/images/kcal.png")),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Text(consumption.kcals.toString() + " kcal",
+                child: Text(consumption.kcals.toString() + " " + AppLocalizations.of(context)!.kcal,
                     style: Theme.of(context).textTheme.bodyText2),
               )
             ],

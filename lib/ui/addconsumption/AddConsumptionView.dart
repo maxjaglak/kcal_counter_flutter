@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:kcal_counter_flutter/core/history/ConsumptionService.dart';
 import 'package:kcal_counter_flutter/core/history/model/Day.dart';
 import 'package:kcal_counter_flutter/core/kiwi/KiwiInjector.dart';
-import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryListItem.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryPickerViewPage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddConsumptionViewPage extends StatelessWidget {
   final Day day;
@@ -17,7 +17,7 @@ class AddConsumptionViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dodaj posiłek"),
+        title: Text(AppLocalizations.of(context)!.addConsumption),
       ),
       body: AddConsumptionView(day: day),
     );
@@ -49,11 +49,11 @@ class AddConsumptionViewState extends State<AddConsumptionView> {
           entry: _pickedEntry!, key: ObjectKey(_pickedEntry)));
     }
     if (_pickedEntry == null) {
-      widgets.add(TextButton(onPressed: () => _pick(), child: Text("Dodaj z listy")));
+      widgets.add(TextButton(onPressed: () => _pick(), child: Text(AppLocalizations.of(context)!.addFromList)));
     } else {
       widgets.add(Container(height:20));
       widgets.add(
-          TextButton(onPressed: () => _removePick(), child: Text("Zmień")));
+          TextButton(onPressed: () => _removePick(), child: Text(AppLocalizations.of(context)!.change)));
     }
 
     if (_pickedEntry != null) {
@@ -63,12 +63,13 @@ class AddConsumptionViewState extends State<AddConsumptionView> {
           keyboardType:
               TextInputType.numberWithOptions(signed: false, decimal: false)));
 
-      widgets.add(Text("Ilość [${_pickedEntry!.unitName}]"));
+      final amountLabel = AppLocalizations.of(context)!.amount;
+      widgets.add(Text("$amountLabel [${_pickedEntry!.unitName}]"));
     }
 
     if (_shouldDisplaySaveButton) {
       widgets.add(Container(height:20));
-      widgets.add(TextButton(onPressed: () => _save(), child: Text("Zapisz")));
+      widgets.add(TextButton(onPressed: () => _save(), child: Text(AppLocalizations.of(context)!.save)));
     }
 
     return Padding(
