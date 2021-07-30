@@ -105,5 +105,6 @@
   },
   "today": "Dzisiaj",
   "yesterday": "Wczoraj",
-  "csvTutorialResourceName": "assets/html/csv_tutorial_pl.html"
+  "csvTutorialResourceName": "assets/html/csv_tutorial_pl.html",
+  "csvTutorialResourceNameAndroid": "assets/html/csv_tutorial_pl_android.html"
 }
