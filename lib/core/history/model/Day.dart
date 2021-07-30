@@ -11,4 +11,9 @@ class Day {
 
   Day(this.id, this.dayBeginTimestamp);
 
+  @override
+  String toString() {
+    return 'Day{id: $id, dayBeginTimestamp: $dayBeginTimestamp}';
+  }
+
 }
