@@ -104,5 +104,6 @@
     }
   },
   "today": "Today",
-  "yesterday": "Yesterday"
+  "yesterday": "Yesterday",
+  "csvTutorialResourceName": "assets/html/csv_tutorial_en.html"
 }
