@@ -7,6 +7,7 @@ import 'package:kcal_counter_flutter/ui/settingstab/SettingsTabCubit.dart';
 import 'package:kcal_counter_flutter/ui/tools/GeneralUI.dart';
 import 'package:kcal_counter_flutter/ui/tools/SnackbarHelper.dart';
 import 'package:kcal_counter_flutter/ui/widget/SettingsButton.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsTabViewCubit extends StatelessWidget {
   @override
@@ -30,22 +31,37 @@ class SettingsTabView extends StatelessWidget {
       }
 
       if(state.success != null) {
-        SnackbarHelper.green(context, state.success!);
+        _displaySuccessMessage(context, state);
       }
 
       return _body(context);
     }, bloc: BlocProvider.of<SettingsTabCubit>(context));
   }
 
+  void _displaySuccessMessage(BuildContext context, SettingsTabState state) {
+    var message = "";
+    switch(state.success) {
+      case SuccessMessage.ImportFinished:
+        message = AppLocalizations.of(context)!.settingsMessageImportFinished;
+        break;
+      case SuccessMessage.Deleted:
+        message = AppLocalizations.of(context)!.settingsMessageLibraryDeleted;
+        break;
+      case null:
+        return;
+    }
+    SnackbarHelper.green(context, message);
+  }
+
   Widget _body(BuildContext context) {
     return Column(
       children: [
-        SettingsButton(text: "Wyczyść tabelę kalori", listener: () => _clearLibrary(context)),
-        SettingsButton(text: "Exportuj tabelę do CSV", listener: () => _exportLibrary(context)),
-        SettingsButton(text: "Importuj tabelę z CSV", listener: () => _importLibraryFromCsv(context)),
-        SettingsButton(text: "Jak zbudować plik CSV?", listener: () => _csvHelp(context)),
-        SettingsButton(text: "Licencja", listener: () => _license(context)),
-        SettingsButton(text: "Credits & info", listener: () => _credits(context)),
+        SettingsButton(text: AppLocalizations.of(context)!.settingsLabelClearLibrary, listener: () => _clearLibrary(context)),
+        SettingsButton(text: AppLocalizations.of(context)!.settingsLabelExportLibraryToCsv, listener: () => _exportLibrary(context)),
+        SettingsButton(text: AppLocalizations.of(context)!.settingsLabelImportLibraryFromCsv, listener: () => _importLibraryFromCsv(context)),
+        SettingsButton(text: AppLocalizations.of(context)!.settingsLabelHowToBuildCsvFile, listener: () => _csvHelp(context)),
+        SettingsButton(text: AppLocalizations.of(context)!.settingsLabelLicense, listener: () => _license(context)),
+        SettingsButton(text: AppLocalizations.of(context)!.settingsLabelCreditsAndInfo, listener: () => _credits(context)),
       ],
     );
   }
@@ -53,16 +69,16 @@ class SettingsTabView extends StatelessWidget {
   _clearLibrary(BuildContext context) {
     final parentContext = context;
     showDialog(context: context, builder: (context) => AlertDialog(
-      title: Text("Czy na pewno wyczyścić tabelę kalorii?"),
-      content: Text("Czy na pewno usunąć wszystkie wpisy z tabeli kalori? TEJ OPERACJI NIE DA SIĘ ODWRÓCIC"),
+      title: Text(AppLocalizations.of(context)!.settingsConfirmClearLibraryTitle),
+      content: Text(AppLocalizations.of(context)!.settingsConfirmClearLibraryContent),
       actions: [
         TextButton(onPressed: ()  {
           BlocProvider.of<SettingsTabCubit>(parentContext).deleteLibrary();
           Navigator.of(context).pop();
-        }, child: Text("Tak")),
+        }, child: Text(AppLocalizations.of(context)!.commonYes)),
         TextButton(onPressed: ()  {
           Navigator.of(context).pop();
-        }, child: Text("Nie")),
+        }, child: Text(AppLocalizations.of(context)!.commonNo)),
       ],
     ));
   }

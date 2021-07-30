@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:kcal_counter_flutter/core/history/DateService.dart';
 import 'package:kcal_counter_flutter/core/history/dao/ConsumptionDao.dart';
 import 'package:kcal_counter_flutter/core/history/dao/DayDao.dart';
@@ -12,8 +13,7 @@ class ConsumptionService {
   final ConsumptionDao consumptionDao;
   final DateService dateService;
 
-  ConsumptionService(this.dayDao, this.consumptionDao,
-      this.dateService);
+  ConsumptionService(this.dayDao, this.consumptionDao, this.dateService);
 
   Future<Day?> getTodayDay() async {
     final lastDay = await dayDao.getLastDay();
@@ -42,35 +42,36 @@ class ConsumptionService {
     return await consumptionDao.getConsumptionByDay(dayId);
   }
 
-  Future<void> saveConsumption(Day day, LibraryEntry pickedEntry,
-      int quantity) async {
+  Future<void> saveConsumption(
+      Day day, LibraryEntry pickedEntry, int quantity) async {
     final consumption = Consumption(
         null,
         day.id!,
         pickedEntry.name,
         quantity,
         pickedEntry.unitName,
-        quantity.toDouble() * pickedEntry.kcals.toDouble() ~/
+        quantity.toDouble() *
+            pickedEntry.kcals.toDouble() ~/
             pickedEntry.perUnitCount.toDouble(),
-        quantity.toDouble() * pickedEntry.carbs.toDouble() /
+        quantity.toDouble() *
+            pickedEntry.carbs.toDouble() /
             pickedEntry.perUnitCount.toDouble(),
-        quantity.toDouble() * pickedEntry.fat.toDouble() /
+        quantity.toDouble() *
+            pickedEntry.fat.toDouble() /
             pickedEntry.perUnitCount.toDouble(),
-        quantity.toDouble() * pickedEntry.protein.toDouble() /
+        quantity.toDouble() *
+            pickedEntry.protein.toDouble() /
             pickedEntry.perUnitCount.toDouble(),
-        DateTime
-            .now()
-            .millisecondsSinceEpoch
-    );
+        DateTime.now().millisecondsSinceEpoch);
 
     await consumptionDao.insert(consumption);
   }
 
   Future<ConsumptionSummary> getCosumptionSummaryForDay(int dayId) async {
     final Day? day = await dayDao.getDayById(dayId);
-    if(day == null) throw Exception("no such day");
-    final List<Consumption> consumptions = await consumptionDao
-        .getConsumptionByDay(dayId);
+    if (day == null) throw Exception("no such day");
+    final List<Consumption> consumptions =
+        await consumptionDao.getConsumptionByDay(dayId);
 
     int totalKcals = 0;
     double totalCarbs = 0;
@@ -84,14 +85,11 @@ class ConsumptionService {
       totalProteins += consumption.protein;
     }
 
-    return ConsumptionSummary(
-        dateService.printDate(day), totalKcals, totalCarbs, totalFats,
-        totalProteins, consumptions.length
-    );
+    return ConsumptionSummary(day, totalKcals, totalCarbs, totalFats,
+        totalProteins, consumptions.length);
   }
 
   Future<void> deleteConsumption(Consumption consumption) async {
     await consumptionDao.deleteConsumption(consumption);
   }
-
 }

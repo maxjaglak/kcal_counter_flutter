@@ -6,13 +6,14 @@ import 'package:kcal_counter_flutter/ui/library/LibraryListView.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryViewTab.dart';
 import 'package:kcal_counter_flutter/ui/library/PagedLibraryListView.dart';
 import 'package:kcal_counter_flutter/ui/libraryedit/LibraryEditView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LibraryPickerViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Wybierz...")),
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.chooseDots)),
         body: Stack(children: [
           PagedLibraryListView(listener: PickerListener(context), key: pagedLibraryListViewGlobalKey),
           Positioned(

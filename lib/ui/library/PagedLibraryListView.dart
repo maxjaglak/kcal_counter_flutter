@@ -11,6 +11,7 @@ import 'package:kcal_counter_flutter/ui/commonwidget/SearchBarWidget.dart';
 import 'package:kcal_counter_flutter/ui/library/LibraryListItem.dart';
 
 import 'LibraryListView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final GlobalKey<PagedLibraryListViewState> pagedLibraryListViewGlobalKey = GlobalKey<PagedLibraryListViewState>();
 
@@ -125,19 +126,18 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
     });
   }
 
-
   _confirmDelete(BuildContext parentContext, LibraryEntry entry) {
     showDialog(context: context, builder: (context) => AlertDialog(
-      title: Text("Usunąć?"),
-      content: Text("Czy na pewno usunąć pozycje: ${entry.name}?"),
+      title: Text(AppLocalizations.of(context)!.libraryDeleteQuestionTitle),
+      content: Text(AppLocalizations.of(context)!.libraryDeleteQuestionContent(entry.name)),
       actions: [
         TextButton(onPressed: ()  {
           _delete(parentContext, entry);
           Navigator.of(parentContext).pop();
-        }, child: Text("Tak")),
+        }, child: Text(AppLocalizations.of(context)!.commonYes)),
         TextButton(onPressed: ()  {
           Navigator.of(parentContext).pop();
-        }, child: Text("Nie")),
+        }, child: Text(AppLocalizations.of(context)!.commonNo)),
       ],
     ));
   }

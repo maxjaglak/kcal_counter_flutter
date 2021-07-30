@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kcal_counter_flutter/core/library/model/CsvLibEntry.dart';
 import 'package:kcal_counter_flutter/core/library/model/LibraryEntry.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LibraryListItemView extends StatelessWidget {
   final LibraryEntry entry;
@@ -47,7 +48,7 @@ class LibraryListItemView extends StatelessWidget {
                   height: imageSize),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Text(entry.kcals.toString() + " kcal",
+                child: Text(entry.kcals.toString() + " " +AppLocalizations.of(context)!.kcal,
                     style: Theme
                         .of(context)
                         .textTheme

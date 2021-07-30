@@ -10,6 +10,7 @@ import 'package:kcal_counter_flutter/ui/libraryedit/LibraryEditCubit.dart';
 import 'package:kcal_counter_flutter/ui/tools/FormFieldHelper.dart';
 import 'package:kcal_counter_flutter/ui/tools/GeneralUI.dart';
 import 'package:kcal_counter_flutter/ui/tools/TextHelper.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LibraryEditViewPage extends StatelessWidget {
   final LibraryEntry? libraryEntry;
@@ -20,7 +21,7 @@ class LibraryEditViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(libraryEntry == null ? "Dodaj" : "Edytuj"),
+        title: Text(libraryEntry == null ? AppLocalizations.of(context)!.editAddNewEntry : AppLocalizations.of(context)!.editEdit),
       ),
       body: LibraryEditViewCubit(
           libraryEntry: libraryEntry,
@@ -113,22 +114,22 @@ class LibraryEditViewState extends State<LibraryEditView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextHelper.titleText(
-              libraryEntry.id == null ? "Dodaj nowy wpis" : "Edytuj"),
+              libraryEntry.id == null ? AppLocalizations.of(context)!.editAddNewEntry : AppLocalizations.of(context)!.editEdit),
           FormFieldHelper.textField(_nameController,
               autoCorrect: true,
               textInputAction: TextInputAction.next,
               validator: (value) => value?.isNotEmpty != true
-                  ? "Pole nazwa nie może być puste"
+                  ? AppLocalizations.of(context)!.editValidationNameCannotBeEmpty
                   : null,
               validationCallback: _validationCallback),
-          TextHelper.label("Nazwa"),
+          TextHelper.label(AppLocalizations.of(context)!.editLabelName),
           FormFieldHelper.textField(_unitNameController,
               autoCorrect: false,
               textInputAction: TextInputAction.next,
               validator: (value) =>
-                  value?.isNotEmpty != true ? "Pole nie może być puste" : null,
+                  value?.isNotEmpty != true ? AppLocalizations.of(context)!.editValidationFieldCannotBeEmpty : null,
               validationCallback: _validationCallback),
-          TextHelper.label("Nazwa jednostki"),
+          TextHelper.label(AppLocalizations.of(context)!.editLabelUnitName),
           FormFieldHelper.textField(_perUnitCountController,
               autoCorrect: false,
               textInputAction: TextInputAction.next,
@@ -136,9 +137,9 @@ class LibraryEditViewState extends State<LibraryEditView> {
               validator: (value) => value != null &&
                       (int.tryParse(value) ?? 0) > 0
                   ? null
-                  : "Pole ilość jednostek w porcji musi zawierać liczbę dodatnią",
+                  : AppLocalizations.of(context)!.editValidationUnitCountMustContainInteger,
               validationCallback: _validationCallback),
-          TextHelper.label("Ile jednostek w porcji (np. 100g)"),
+          TextHelper.label(AppLocalizations.of(context)!.editLabelHowManyUnitsInEntry),
           FormFieldHelper.textField(_kcalsController,
               autoCorrect: false,
               textInputAction: TextInputAction.next,
@@ -146,9 +147,9 @@ class LibraryEditViewState extends State<LibraryEditView> {
               validator: (value) =>
                   value != null && (int.tryParse(value) ?? 0) > 0
                       ? null
-                      : "Pole kalorie w porcji musi zawierać liczbę dodatnią",
+                      : AppLocalizations.of(context)!.editValidationKcalsMustContainInteger,
               validationCallback: _validationCallback),
-          TextHelper.label("Kcale w porcji"),
+          TextHelper.label(AppLocalizations.of(context)!.editLabelKcalInEntry),
           FormFieldHelper.textField(_carbsController,
               autoCorrect: false,
               textInputAction: TextInputAction.next,
@@ -156,9 +157,9 @@ class LibraryEditViewState extends State<LibraryEditView> {
               validator: (value) =>
                   value != null && (double.tryParse(value) ?? 0) >= 0
                       ? null
-                      : "Pole węgle w porcji musi zawierać liczbę >= 0",
+                      : AppLocalizations.of(context)!.editValidationCarbsCountMustContainInteger,
               validationCallback: _validationCallback),
-          TextHelper.label("Węgle w porcji"),
+          TextHelper.label(AppLocalizations.of(context)!.editLabelCarbsInEntry),
           FormFieldHelper.textField(_fatsController,
               autoCorrect: false,
               textInputAction: TextInputAction.next,
@@ -166,9 +167,9 @@ class LibraryEditViewState extends State<LibraryEditView> {
               validator: (value) =>
                   value != null && (double.tryParse(value) ?? 0) >= 0
                       ? null
-                      : "Pole tłuszcze w porcji musi zawierać liczbę >= 0",
+                      : AppLocalizations.of(context)!.editValidationFatCountMustContainInteger,
               validationCallback: _validationCallback),
-          TextHelper.label("Tłuszcze w porcji"),
+          TextHelper.label(AppLocalizations.of(context)!.editLabelFatInEntry),
           FormFieldHelper.textField(_proteinController,
               autoCorrect: false,
               textInputAction: TextInputAction.done,
@@ -176,20 +177,20 @@ class LibraryEditViewState extends State<LibraryEditView> {
               validator: (value) =>
                   value != null && (double.tryParse(value) ?? 0) >= 0
                       ? null
-                      : "Pole białko w porcji musi zawierać liczbę >= 0",
+                      : AppLocalizations.of(context)!.editValidationProteinCountMustContainInteger,
               validationCallback: _validationCallback),
-          TextHelper.label("Białko w porcji"),
+          TextHelper.label(AppLocalizations.of(context)!.editLabelProteinInEntry),
           Row(
             children: [
               Checkbox(
                   value: _isFavourite,
                   onChanged: (value) => _onFavouriteChanged(value ?? false)),
-              Text("Ulubiony (wyżej na liście)")
+              Text(AppLocalizations.of(context)!.editLabelFavourite)
             ],
           ),
           TextButton(
               onPressed: () => _save(context, libraryEntry),
-              child: Text("Zapisz"))
+              child: Text(AppLocalizations.of(context)!.save))
         ],
       ),
     );

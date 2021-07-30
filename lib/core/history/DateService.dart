@@ -1,16 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-
 import 'model/Day.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DateService {
-  String printDate(Day day) {
+  String printDate(BuildContext context, Day day) {
     final beginOfToday = getBeginningOfCurrentDay().millisecondsSinceEpoch;
     if(day.dayBeginTimestamp == beginOfToday) {
-      return "Dzisiaj";
+      return AppLocalizations.of(context)!.today;
     }
     final beginOfYesterday = getBeginningOfYesterday().millisecondsSinceEpoch;
-    if(day.dayBeginTimestamp == beginOfToday) {
-      return "Wczoraj";
+    if(day.dayBeginTimestamp == beginOfYesterday) {
+      return AppLocalizations.of(context)!.yesterday;
     }
 
     final format = DateFormat("yyyy-MM-dd");

@@ -7,13 +7,14 @@ import 'package:kcal_counter_flutter/ui/library/LibraryViewTab.dart';
 import 'package:kcal_counter_flutter/ui/nav/NavigationBloc.dart';
 import 'package:kcal_counter_flutter/ui/settingstab/SettingsTabView.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/TodayTabView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainNavViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Licznik Kcal'ów"),
+        title: Text(AppLocalizations.of(context)!.appTitle),
       ),
       body: MobileNavigationViewBloc(),
     );
@@ -31,26 +32,46 @@ class MobileNavigationViewBloc extends StatelessWidget {
 }
 
 class MobileNavigationView extends StatelessWidget {
-  List<Widget> _views = <Widget>[TodayTabViewBloc(), HistoryViewCubit(), LibraryViewTab(), SettingsTabViewCubit()];
-
-  List<BottomNavigationBarItem> _navItems = <BottomNavigationBarItem>[
-    BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: "Dzisiaj"),
-    BottomNavigationBarItem(icon: Icon(Icons.history), label: "Historia"),
-    BottomNavigationBarItem(icon: Icon(Icons.library_books), label: "Tabela"),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Ustawienia")
+  List<Widget> _views = <Widget>[
+    TodayTabViewBloc(),
+    HistoryViewCubit(),
+    LibraryViewTab(),
+    SettingsTabViewCubit()
   ];
+
+  List<BottomNavigationBarItem>? _navItems;
 
   @override
   Widget build(BuildContext context) {
+    if (_navItems == null) {
+      _fillNavItems(context);
+    }
     return BlocBuilder<NavigationBloc, NavState>(
         builder: (context, state) => Scaffold(
             body: _views[state.selectedView],
             bottomNavigationBar: BottomNavigationBar(
-                items: _navItems,
+                items: _navItems!,
                 currentIndex: state.selectedView,
                 selectedItemColor: Color.fromARGB(255, 57, 214, 138),
                 unselectedItemColor: Colors.grey,
                 onTap: (index) => BlocProvider.of<NavigationBloc>(context)
                     .add(NavEvent(index)))));
+  }
+
+  void _fillNavItems(BuildContext context) {
+    _navItems = <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today),
+          label: AppLocalizations.of(context)!.navTabToday),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.history),
+          label: AppLocalizations.of(context)!.navTabHistory),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.library_books),
+          label: AppLocalizations.of(context)!.navTabLibrary),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: AppLocalizations.of(context)!.navTabSettings)
+    ];
   }
 }

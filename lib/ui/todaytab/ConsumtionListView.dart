@@ -5,6 +5,7 @@ import 'package:kcal_counter_flutter/core/history/model/Day.dart';
 import 'package:kcal_counter_flutter/ui/addconsumption/AddConsumptionView.dart';
 import 'package:kcal_counter_flutter/ui/common/CustomCardView.dart';
 import 'package:kcal_counter_flutter/ui/todaytab/ConsumptionListItemView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConsumptionListView extends StatelessWidget {
   final List<Consumption> consumptions;
@@ -16,13 +17,13 @@ class ConsumptionListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (this.consumptions.isEmpty) {
-      return _empty();
+      return _empty(context);
     }
     return _list(context);
   }
 
-  Widget _empty() {
-    return Center(child: Text("Brak elementów"));
+  Widget _empty(BuildContext context) {
+    return Center(child: Text(AppLocalizations.of(context)!.consumptionNoElements));
   }
 
   Widget _list(BuildContext context) {
