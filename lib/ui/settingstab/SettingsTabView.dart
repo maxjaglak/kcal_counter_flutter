@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -126,17 +128,36 @@ class SettingsTabView extends StatelessWidget {
   }
 
   _csvHelp(BuildContext context) {
-    _openWebView(context, AppLocalizations.of(context)!.csvTutorialResourceName,
+    String resource;
+    if (Platform.isAndroid) {
+      resource =
+          AppLocalizations.of(context)!.csvTutorialResourceNameAndroid;
+    } else {
+      resource = AppLocalizations.of(context)!.csvTutorialResourceName;
+    }
+    _openWebView(context, resource,
         AppLocalizations.of(context)!.settingsLabelHowToBuildCsvFile);
   }
 
   _license(BuildContext context) {
-    _openWebView(context, "assets/html/license.html",
-        AppLocalizations.of(context)!.settingsLabelLicense);
+    String resource;
+    if (Platform.isAndroid) {
+      resource = "assets/html/license_android.html";
+    } else {
+      resource = "assets/html/license.html";
+    }
+    _openWebView(
+        context, resource, AppLocalizations.of(context)!.settingsLabelLicense);
   }
 
   _credits(BuildContext context) {
-    _openWebView(context, "assets/html/credits_and_info.html",
+    String resource;
+    if (Platform.isAndroid) {
+      resource = "assets/html/credits_and_info_android.html";
+    } else {
+      resource = "assets/html/credits_and_info.html";
+    }
+    _openWebView(context, resource,
         AppLocalizations.of(context)!.settingsLabelCreditsAndInfo);
   }
 
