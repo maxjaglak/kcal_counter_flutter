@@ -7,12 +7,10 @@ Kcal counter flutter
 - Offline calories counter
 - storing all data on your local device
 
-## TODO:
+## STILL TODO:
 
-(It's very much "work in progress")
-
-- finish settings tab
-- langs support
+- [done] finish settings tab
+- [done] langs support
 - [done] nicer search
 - possibility to edit consumptions (at least these added 'today')
 - check details of past days
@@ -31,3 +29,5 @@ Kcal counter flutter
 <div>Icons made by <a href="https://smashicons.com/" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 <div>Icons made by <a href="" title="Icongeek26">Icongeek26</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+(app icon is done in GIMP manually)
