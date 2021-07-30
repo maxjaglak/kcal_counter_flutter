@@ -106,5 +106,10 @@
   "today": "Dzisiaj",
   "yesterday": "Wczoraj",
   "csvTutorialResourceName": "assets/html/csv_tutorial_pl.html",
-  "csvTutorialResourceNameAndroid": "assets/html/csv_tutorial_pl_android.html"
+  "csvTutorialResourceNameAndroid": "assets/html/csv_tutorial_pl_android.html",
+  "termsTitle": "Warunki użytkowania",
+  "termsContent": "To jest apliakacja 'open source' (otwarte źródło). Nie ma żadnej gwarancji dla użytkownika. Proszę przeczytaj licencje w ustawieniach.",
+  "termsDisclaimer": "Ta aplikacja nie dostarcza żadnych porad dotyczących zdrowia albo odżywiania się, jej celem jest tylko i wyłącznie liczenie kalorii. W żadnym wypadku Autor tej aplikacji nie będzie ponosił odpowiedzialności za jakiekolwiek szkody!. Ty jesteś odpowiedzialny(a) za swoje własne zdrowie i dietę.",
+  "termsPrivacy": "Ta aplikacja nie przetwarza żadnych danych osobowych. Wszystkie dane są przechowywane wyłącznie lokalnie na Twoim urządzeniu. Aplikacja nie wysyła żadnych informacji na serwer. Kod źródłowy jest dostępny na githubie.",
+  "termsAgreeButton": "Ok, zgadam się!"
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kcal_counter_flutter/ui/nav/MainNavView.dart';
 import 'package:kcal_counter_flutter/ui/splash/SplashView.dart';
+import 'package:kcal_counter_flutter/ui/terms/TermsView.dart';
 import 'package:kcal_counter_flutter/ui/tools/GeneralUI.dart';
 import 'package:kiwi/kiwi.dart';
 
@@ -23,6 +24,11 @@ class InitView extends StatelessWidget {
           if(state is InitStateSplash) {
             return SplashViewScreen();
           }
+
+          if(state is TermsScreen) {
+            return TermsViewPage();
+          }
+
           if(state is InitStateMainNav) {
             return MainNavViewPage();
           }
