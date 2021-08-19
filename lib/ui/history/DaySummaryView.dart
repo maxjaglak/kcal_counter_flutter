@@ -22,7 +22,7 @@ class DaySummaryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         builder: (context, snap) {
-          if (!snap.hasData) return GeneralUI.progressIndicator();
+          if (!snap.hasData) return Container();
 
           final consumptionSummary = snap.data as ConsumptionSummary;
           return SummaryView(

@@ -9,16 +9,11 @@ Kcal counter flutter
 
 ## STILL TODO:
 
-- [done] finish settings tab
-- [done] langs support
-- [done] nicer search
 - possibility to edit consumptions (at least these added 'today')
 - check details of past days
 - edit quantity of item in the current day
 - import / export history data (not only library)
-- [done] drop progress bars where they're not needed
-- [always sth to improve] some bugs fixing 
--- [done] portrait only
+- [always sth to improve] some bugs fixing
 
 ## Attributions:
 
