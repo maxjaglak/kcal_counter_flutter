@@ -44,7 +44,7 @@
   "settingsLabelClearLibrary": "Clear library (calories table)",
   "settingsLabelExportLibraryToCsv": "Export library to CSV",
   "settingsLabelImportLibraryFromCsv": "Import CSV file to library",
-  "settingsLabelHowToBuildCsvFile": "Hot to build CSV file",
+  "settingsLabelHowToBuildCsvFile": "How to build CSV file",
   "settingsLabelLicense": "License",
   "settingsLabelCreditsAndInfo": "Credits & Info",
   "settingsConfirmClearLibraryTitle": "Do you really want to clean library?",
