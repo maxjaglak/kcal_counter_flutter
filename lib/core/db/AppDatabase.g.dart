@@ -6,6 +6,7 @@ part of 'AppDatabase.dart';
 // FloorGenerator
 // **************************************************************************
 
+// ignore: avoid_classes_with_only_static_members
 class $FloorAppDatabase {
   /// Creates a database builder for a persistent database.
   /// Once a database is built, you should keep a reference to it and re-use it.
@@ -72,6 +73,7 @@ class _$AppDatabase extends AppDatabase {
       version: 1,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
+        await callback?.onConfigure?.call(database);
       },
       onOpen: (database) async {
         await callback?.onOpen?.call(database);
@@ -325,23 +327,6 @@ class _$LibraryEntryDao extends LibraryEntryDao {
   final DeletionAdapter<LibraryEntry> _libraryEntryDeletionAdapter;
 
   @override
-  Future<List<LibraryEntry>> searchLibrary(String query) async {
-    return _queryAdapter.queryList(
-        'SELECT * FROM LibraryEntry WHERE name like ?1',
-        mapper: (Map<String, Object?> row) => LibraryEntry(
-            row['id'] as int?,
-            row['name'] as String,
-            row['unitName'] as String,
-            row['perUnitCount'] as int,
-            row['kcals'] as int,
-            row['carbs'] as double,
-            row['fat'] as double,
-            row['protein'] as double,
-            (row['isFavourite'] as int) != 0),
-        arguments: [query]);
-  }
-
-  @override
   Future<List<LibraryEntry>> getPage(int limit, int offset) async {
     return _queryAdapter.queryList(
         'SELECT * FROM LibraryEntry ORDER BY isFavourite DESC, id LIMIT ?1 OFFSET ?2',
@@ -356,6 +341,23 @@ class _$LibraryEntryDao extends LibraryEntryDao {
         'SELECT * FROM LibraryEntry WHERE name LIKE ?3 ORDER BY isFavourite DESC, id LIMIT ?1 OFFSET ?2',
         mapper: (Map<String, Object?> row) => LibraryEntry(row['id'] as int?, row['name'] as String, row['unitName'] as String, row['perUnitCount'] as int, row['kcals'] as int, row['carbs'] as double, row['fat'] as double, row['protein'] as double, (row['isFavourite'] as int) != 0),
         arguments: [limit, offset, query]);
+  }
+
+  @override
+  Future<List<LibraryEntry>> searchLibrary(String query) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM LibraryEntry WHERE name like ?1',
+        mapper: (Map<String, Object?> row) => LibraryEntry(
+            row['id'] as int?,
+            row['name'] as String,
+            row['unitName'] as String,
+            row['perUnitCount'] as int,
+            row['kcals'] as int,
+            row['carbs'] as double,
+            row['fat'] as double,
+            row['protein'] as double,
+            (row['isFavourite'] as int) != 0),
+        arguments: [query]);
   }
 
   @override

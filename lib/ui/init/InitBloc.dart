@@ -11,36 +11,35 @@ class InitBloc extends Bloc<InitEvent, InitState> {
   late PreferencesService preferencesService;
 
   InitBloc() : super(InitStateSplash()) {
+    on<TermsAcceptedEvent>((event, emit) async {
+      await preferencesService.setTermsAccepted(true);
+      await _emitAppState(emit);
+    });
+    on<InitEventInitializationDone>((event, emit) async {
+      await _emitAppState(emit);
+    });
     _initializeApp();
   }
 
   Future<void> _initializeApp() async {
     AppInitService.initApp().then((_) {
       this._container = KiwiInjector.instance.getContainer();
-      this.preferencesService = KiwiInjector.instance.getContainer().resolve<PreferencesService>();
+      this.preferencesService =
+          KiwiInjector.instance.getContainer().resolve<PreferencesService>();
       this.add(InitEventInitializationDone());
     });
   }
 
-  @override
-  Stream<InitState> mapEventToState(InitEvent event) async* {
-    try {
-      if(event is TermsAcceptedEvent) {
-        await preferencesService.setTermsAccepted(true);
-      }
-      if (_container == null) {
-        yield InitStateSplash();
+  Future<void> _emitAppState(Emitter<InitState> emit) async {
+    if (_container == null) {
+      emit(InitStateSplash());
+    } else {
+      bool areTermsAcceptedKey = await preferencesService.areTermsAccepted();
+      if (areTermsAcceptedKey) {
+        emit(InitStateMainNav());
       } else {
-        bool areTermsAcceptedKey = await preferencesService.areTermsAccepted();
-        if(areTermsAcceptedKey) {
-          yield InitStateMainNav();
-        } else {
-          yield TermsScreen();
-        }
+        emit(TermsScreen());
       }
-    } on Exception catch (e) {
-      print(e);
-      yield InitStateError();
     }
   }
 }
