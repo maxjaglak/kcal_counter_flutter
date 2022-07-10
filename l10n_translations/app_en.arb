@@ -108,8 +108,8 @@
   "csvTutorialResourceName": "assets/html/csv_tutorial_en.html",
   "csvTutorialResourceNameAndroid": "assets/html/csv_tutorial_en_android.html",
   "termsTitle": "Terms of use",
-  "termsContent": "This is open source application. It comes with no warranty. Please check license, available in settings.",
-  "termsDisclaimer": "This application is not meant to provide any health guidance or medical advice! It's purpose is to count calories ONLY. Under no event shall Author of this application be liable for any claim, damage or other liability! You are solely responsible for your own health and diet!",
-  "termsPrivacy": "This application does not process any personal data. All data is stored locally on your device. Nothing is sent to server! Source code available on github.",
+  "termsContent": "This is an open source application. It comes with no warranty. Please check license, available in settings.",
+  "termsDisclaimer": "This application is not meant to provide any health guidance or medical advice! It's purpose is to count calories ONLY. Under no event shall the Author of this application be liable for any claim, damage or other liability! You are solely responsible for your own health and diet!",
+  "termsPrivacy": "This application does not process any personal data. All data that you type in is stored locally on your device. Nothing is sent to any server! Source code available on github.",
   "termsAgreeButton": "Yes, I agree!"
 }
