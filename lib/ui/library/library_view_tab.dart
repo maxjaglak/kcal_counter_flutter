@@ -31,9 +31,11 @@ class LibraryViewTab extends StatelessWidget {
     );
   }
 
-  _add(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
+  _add(BuildContext context) async {
+    await Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => LibraryEditViewPage(key: UniqueKey())));
+
+    pagedLibraryListViewGlobalKey.currentState?.refresh();
   }
 }
 

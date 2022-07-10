@@ -75,10 +75,13 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
     return Column(
       children: [
         search!,
+
         Expanded(
             child: PagedListView<int, LibraryEntry>(
                 pagingController: _pagingController,
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 builderDelegate: PagedChildBuilderDelegate<LibraryEntry>(
+                    noItemsFoundIndicatorBuilder: (context) => _noItems(context),
                     itemBuilder: (context, item, index) =>
                         _listItem(context, item))))
       ],
@@ -145,6 +148,12 @@ class PagedLibraryListViewState extends State<PagedLibraryListView>
   void _delete(BuildContext parentContext, LibraryEntry entry) async {
     await _libraryEntryDao.deleteEntry(entry);
     refresh();
+  }
+
+  Widget _noItems(BuildContext context) {
+    return Center(
+      child: Text(AppLocalizations.of(context)!.summaryLabelEmpty),
+    );
   }
 
 }
